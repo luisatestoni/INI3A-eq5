@@ -1,0 +1,62 @@
+/* Header das páginas iniciais */
+.topo-visitante {
+    background-color: #4A2475;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Badge/Logo Redonda Scribo */
+.marca-scribo {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 6px 20px;
+    border-radius: 9999px;
+    font-size: 20px;
+}
+
+.marca-scribo span {
+    color: #F2994A;
+}
+
+/* Caixa Card das telas de Login/Cadastro/Reset */
+.painel-autenticacao {
+    background-color: #FFFFFF;
+    padding: 32px;
+    border-radius: 32px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Mancha Laranja/Pêssego decorativa da Home */
+.mancha-decorativa {
+    position: absolute;
+    width: 288px;
+    height: 288px;
+    background-color: #FFEADB;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.8;
+}
+
+/* Card inclinado de citações da Home */
+.card-citacao {
+    position: relative;
+    background-color: #FFFFFF;
+    padding: 32px;
+    border-radius: 32px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #F1F5F9;
+    max-width: 320px;
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+}
+
+.card-citacao:hover {
+    transform: rotate(0deg);
+}
