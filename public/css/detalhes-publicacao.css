@@ -1,0 +1,389 @@
+/* =========================
+   CONTAINER
+========================= */
+
+.container-detalhes{
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card-detalhes{
+    background: #faf7f6;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.cabecalho-post{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 25px;
+}
+
+.autor-post{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar-autor{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.autor-post h4{
+    font-size:15px;
+    color:#222;
+    margin-bottom:2px;
+}
+
+.autor-post span{
+    font-size:12px;
+    color:#777;
+}
+
+.tag-categoria{
+    background:#4c2b75;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+/* =========================
+   IMAGEM
+========================= */
+
+.imagem-post{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+    display:block;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.conteudo-post{
+    padding:35px;
+}
+
+.conteudo-post h1{
+    font-size:28px;
+    color:#1f1f1f;
+    margin-bottom:20px;
+    line-height:1.1;
+}
+
+.resumo-post{
+    font-size:18px;
+    color:#555;
+    margin-bottom:25px;
+    font-style:italic;
+}
+
+.texto-post{
+    color:#333;
+    line-height:1.9;
+    font-size:18px;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+
+.barra-acoes{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:20px 35px;
+    border-top:1px solid #e4e4e4;
+    border-bottom:1px solid #e4e4e4;
+}
+
+/* 1. ESTADO PADRÃO DO BOTÃO (Sem ter curtido) */
+.botao-acao {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #65676b; /* Cinza padrão */
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+
+/* Efeito opcional: apenas um feedback visual rápido quando o mouse passa por cima */
+.botao-acao:hover {
+    color: #333333;
+}
+
+
+/* 2. ESTADO CURTIDO (O JavaScript ativa essa classe e ela PERMANECE) */
+.botao-acao.curtido {
+    color: #e44d3a !important; /* Vermelho definitivo que substitui o cinza */
+}
+
+/* Altera especificamente o ícone dentro do botão curtido para garantir que mude de cor */
+.botao-acao.curtido i {
+    color: #e44d3a !important;
+}
+
+/* Altera o número do contador quando estiver curtido */
+.botao-acao.curtido .contador-curtidas {
+    color: #e44d3a;
+    font-weight: 600; /* Deixa o número levemente em negrito */
+}
+/* =========================
+   COMENTÁRIOS
+========================= */
+
+.secao-comentarios{
+    padding:30px 35px;
+}
+
+.secao-comentarios h3{
+    color:#4c2b75;
+    margin-bottom:20px;
+}
+
+.form-comentario{
+    display:flex;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.form-comentario input{
+    flex:1;
+    height:48px;
+    border:1px solid #d8d8d8;
+    border-radius:24px;
+    padding:0 20px;
+    font-size:14px;
+    outline:none;
+}
+
+.form-comentario input:focus{
+    border-color:#4c2b75;
+}
+
+.form-comentario button{
+    background:#4c2b75;
+    color:white;
+    border:none;
+    padding:0 25px;
+    border-radius:24px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.form-comentario button:hover{
+    opacity:.9;
+}
+
+.comentario{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+    padding-bottom:20px;
+    border-bottom:1px solid #ececec;
+}
+
+.avatar-comentario{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.corpo-comentario{
+    flex:1;
+}
+
+.topo-comentario{
+    margin-bottom:5px;
+}
+
+.topo-comentario strong{
+    color:#222;
+    font-size:14px;
+}
+
+.corpo-comentario p{
+    color:#444;
+    line-height:1.6;
+}
+
+.sem-comentarios{
+    text-align:center;
+    padding:20px;
+    color:#888;
+}
+
+/* ==========================================
+   MENU DE TRÊS PONTINHOS (HORIZONTAL E ORGANIZADO)
+========================================== */
+
+.container-opcoes-post {
+    position: relative; /* Mudado de absolute para relative para respeitar o fluxo */
+    display: inline-block;
+}
+
+.btn-tres-pontinhos {
+    background: none;
+    border: none;
+    font-size: 22px; /* Aumentado levemente para os pontos horizontais aparecerem melhor */
+    color: #666666;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+    line-height: 1;
+}
+
+.btn-tres-pontinhos:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #262626;
+}
+
+/* Caixa Suspensa do Menu (Dropdown) */
+.menu-opcoes-post {
+    display: none; /* Controlado via JS */
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 140px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid #efefef;
+    overflow: hidden;
+    margin-top: 8px;
+    z-index: 150; /* Garante que fica por cima de tudo */
+}
+
+/* Links e Botões internos do Dropdown */
+.item-opcao-post {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #262626;
+    text-decoration: none;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s;
+}
+
+.item-opcao-post:hover {
+    background-color: #f5f5f5;
+}
+
+/* Opção deletar/excluir em vermelho */
+.item-opcao-post.deletar {
+    color: #ed4956;
+}
+
+.item-opcao-post.deletar:hover {
+    background-color: #fff1f2;
+}
+
+/* Container que alinha o botão com o fluxo da página */
+.container-botao-voltar {
+    max-width: 800px;
+    margin: 20px auto 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Estilização padrão do link/botão de voltar */
+.btn-voltar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #4c2b75; /* Roxo padrão do seu projeto */
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Efeito de hover (passar o mouse por cima) */
+.btn-voltar-link:hover {
+    background-color: rgba(76, 43, 117, 0.08); /* Fundo roxo bem clarinho */
+    color: #361e54; /* Escurece o roxo levemente */
+}
+
+/* Pequena animação do ícone se movendo para a esquerda no hover */
+.btn-voltar-link:hover i {
+    transform: translateX(-3px);
+}
+
+/* Garante a transição suave no ícone da seta */
+.btn-voltar-link i {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:768px){
+
+    .conteudo-post{
+        padding:25px;
+    }
+
+    .conteudo-post h1{
+        font-size:30px;
+    }
+
+    .texto-post{
+        font-size:16px;
+    }
+
+    .imagem-post{
+        height:280px;
+    }
+
+    .barra-acoes{
+        justify-content:space-around;
+        gap:0;
+    }
+
+    .form-comentario{
+        flex-direction:column;
+    }
+
+    .form-comentario button{
+        height:45px;
+    }
+
+    
+}

@@ -1,0 +1,220 @@
+/* public/css/style.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f7f9fa;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Evita barras de rolagem horizontais loucas */
+}
+
+h1, h2, h3, .logo-scribo {
+    font-weight: 700; /* Super negrito para as logos e títulos principais */
+}
+
+h4, button, .item-aba {
+    font-weight: 500; /* Peso médio para sublinks e botões */
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Cabeçalho Roxo */
+.main-header {
+    background-color: #4c2b75; /* Roxo principal das imagens */
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 35px;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Rodapé Base */
+.main-footer {
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 40px;
+}
+
+
+.link-aba{
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    text-decoration: none;
+
+    color: #666;
+
+    transition: .2s;
+}
+
+.link-aba i{
+    font-size: 24px;
+}
+
+.link-aba:hover{
+    background: #f5f4f8;
+    color: #4c2b75;
+}
+
+.link-aba.ativo{
+    background: #4c2b75;
+    color: white;
+}
+
+.cabecalho-principal {
+    background-color: #4c2b75;
+    padding: 0 40px; /* Removemos o padding do topo/baixo para não esticar */
+    color: white;
+    height: 70px; /* TRAVA a altura do retângulo roxo aqui (ajuste o valor se quiser mais fino ou grosso) */
+}
+
+.container-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%; /* Faz o conteúdo interno ocupar exatamente os 70px do pai */
+}
+
+.logo-scribo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.logo-scribo a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.imagem-logo {
+    height: 55px; /* Agora você pode aumentar aqui à vontade! (Só não passe muito de 70px) */
+    width: auto;  
+    object-fit: contain;
+    max-height: 100%; /* Garante que ela nunca vai estourar o limite do roxo por acidente */
+}
+
+.bloco-esquerda, .bloco-direita { width: 150px; display: flex; align-items: center; }
+.bloco-direita { justify-content: flex-end; gap: 20px; }
+.bloco-centro { display: flex; justify-content: center; flex: 1; }
+.imagem-logo { height: 35px; width: auto; }
+
+/* Sub-abas brancas (Alinhamento Horizontal Perfeito) */
+.abas-feed {
+    display: flex;
+    justify-content: center; /* Centraliza as guias na tela como na imagem */
+    gap: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    height: 48px;
+    width: 100%;
+}
+
+.item-aba {
+    text-decoration: none;
+    color: #666666;
+    font-size: 14px;
+    font-weight: 500;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 10px;
+}
+
+.item-aba.ativo {
+    color: #ff7a45; /* Laranja selecionado */
+}
+
+.item-aba.ativo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ff7a45;
+    border-radius: 3px 3px 0 0;
+}
+
+/* Barra Lateral Fixa na Esquerda */
+.barra-lateral .link-aba {
+    color: #4c2b75 !important; /* Cor roxa padrão do Scribo (muda de transparente/branco para roxo visível!) */
+    font-size: 26px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 45px !important;
+    height: 45px !important;
+    opacity: 1 !important; /* Garante que nenhuma regra antiga esteja deixando transparente */
+    transition: color 0.2s, transform 0.2s;
+}
+
+/* O QUE ACONTECE QUANDO PASSA O MOUSE (HOVER) */
+.barra-lateral .link-aba:hover {
+    color: #ff7a45 !important; /* Vira o laranja do protótipo ao passar o mouse */
+    transform: scale(1.1);
+}
+
+.barra-lateral .link-aba {
+    color: #4c2b75 !important;
+    font-size: 26px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 45px !important;
+    height: 45px !important;
+    transition: transform 0.2s;
+}
+
+/* Evita que o conteúdo do perfil ou feed quebre por baixo dos ícones */
+.conteudo-principal-site {
+    display: block !important;
+    width: 100% !important;
+    min-height: calc(100vh - 120px);
+    padding: 30px 20px;
+}
+
+/* Quando estiver no feed ou perfil, empurra tudo rigorosamente para a direita */
+.conteudo-principal-site.com-barra-lateral {
+    padding-left: 140px !important; /* Abre o vão perfeito de 140px na esquerda */
+}

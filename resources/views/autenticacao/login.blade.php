@@ -1,9 +1,9 @@
-@extends('layouts.visitante')
+@extends('layouts.app')
 
 @section('conteudo')
 <div class="painel-autenticacao centralizado-texto">
     <h2 class="titulo-boas-vindas">Seja Bem-Vindo</h2>
-    <p class="subtitulo-auth">Faça seu login</p>
+    <p class="subtitulo-auth">Faça seu login para acessar o Scribo</p>
 
     <form action="{{ route('login') }}" method="POST" class="formulario-auth alinhado-esquerda">
         @csrf
@@ -25,7 +25,7 @@
 
     <div class="bloco-rodape-auth">
         <p class="texto-esqueceu">Esqueceu a senha?</p>
-        <a href="{{ route('senha.recuperar') }}" class="link-clique-aqui">Clique aqui</a>
+        <a href="{{ route('senha.esqueci') }}" class="link-clique-aqui">Clique aqui</a>
     </div>
 </div>
 @endsection

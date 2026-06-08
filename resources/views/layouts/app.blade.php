@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scribo</title>
-    <link rel="stylesheet" href="{{ asset('css/componentes.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <title>Scribo - @yield('titulo', 'Rede Social')</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font-style/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ asset('css/global.css') }}"> @stack('estilos')
 </head>
+
 <body>
-
-    <header class="topo-plataforma">
-        <button class="botao-modo-noturno">🌙</button>
-
-        <a href="{{ route('feed') }}" class="marca-central-dashboard">
-            Scri<span>bo.</span>
-        </a>
-
-        <div class="usuario-notificacao-bloco">
-            <button class="botao-notificacao">
-                🔔 <span class="badge-contador">3</span>
-            </button>
-            <a href="{{ route('perfil.exibir', auth()->user()->usuario ?? 'luisa') }}" class="link-avatar-topo">
-                <div class="moldura-avatar">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Perfil">
-                </div>
-            </a>
+    <header class="cabecalho-principal">
+        <div class="container-cabecalho">
+            <div class="bloco-esquerda"> <button class="botao-icone" title="Modo Escuro"> <i class="fa-regular fa-moon"></i> </button> </div>
+            <div class="bloco-centro"> <a href="{{ route('feed') }}"> <img src="{{ asset('imagens/logotipo-scribo-v1.svg') }}" alt="Scribo" class="imagem-logo"> </a> </div>
+            <div class="bloco-direita"> @if(request()->routeIs('inicial') || request()->routeIs('login') || request()->routeIs('cadastro')) @if(!request()->routeIs('login')) <a href="{{ route('login') }}" class="btn-login-cabecalho">Entrar</a> @endif @else <button class="botao-icone" title="Notificações"> <i class="fa-regular fa-bell"></i> </button> <a href="{{ route('perfil.exibir', ['id' => auth()->id() ?? 1]) }}" class="link-avatar"> @if(auth()->user() && auth()->user()->perfil && auth()->user()->perfil->foto) <img src="{{ asset('storage/' . auth()->user()->perfil->foto) }}" alt="Meu Perfil" class="avatar-usuario"> @else <div class="icone-perfil"> <img class="icone-perfil-imagem" src="{{ asset('imagens/perfil-v1.png') }}" alt="Avatar Padrão"> </div> @endif </a> @endif </div>
         </div>
-    </header>
+    </header> @if(Route::is('feed')) 
+        <nav class="abas-feed"> <a href="#" class="item-aba ativo">Para você</a> <a href="#" class="item-aba">Seguindo</a> <a href="#" class="item-aba">Tendências</a> <a href="#" class="item-aba">Recentes</a> </nav> @endif @if(request()->routeIs('feed') || request()->routeIs('perfil.exibir')) 
+            <aside class="barra-lateral">
 
-    <div class="container-plataforma">
-        
-        <aside class="menu-lateral">
-            <a href="{{ route('feed') }}" class="link-menu ativo">🏠</a>
-            <button class="link-menu">🔍</button>
-            <button class="link-menu">🔖</button>
-            <button class="link-menu">📬</button>
-        </aside>
+    <a href="{{ route('feed') }}"
+       class="link-aba {{ request()->routeIs('feed') ? 'ativo' : '' }}"
+       title="Início">
+        <i class="bi bi-house-door-fill"></i>
+    </a>
 
-        <main class="conteudo-interno-dinamico">
-            @yield('conteudo_interno')
-        </main>
-    </div>
+    <a href="#" class="link-aba" title="Explorar">
+        <i class="bi bi-compass"></i>
+    </a>
 
-    <a href="{{ route('post.criar') }}" class="botao-laranha-flutuante">+</a>
+    <a href="{{ route('publicacao.criar') }}"
+       class="link-aba {{ request()->routeIs('publicacao.criar') ? 'ativo' : '' }}"
+       title="Nova publicação">
+        <i class="bi bi-plus-circle-fill"></i>
+    </a>
 
+    <a href="#" class="link-aba" title="Mensagens">
+        <i class="bi bi-chat-dots"></i>
+    </a>
+
+</aside>
+ @endif <main class="conteudo-principal-site {{ (request()->routeIs('feed') || request()->routeIs('perfil.exibir')) ? 'com-barra-lateral' : '' }}"> @yield('conteudo') </main>
+    <footer class="rodape-principal">
+        <p>&copy; 2026 Scribo. Desenvolvido exatamente com base nos protótipos.</p>
+    </footer> @stack('scripts')
 </body>
-</html>
+
+</html> 

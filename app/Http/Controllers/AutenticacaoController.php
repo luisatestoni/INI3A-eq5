@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Usuario; // ESSA LINHA SEPARA O ERRO DO SUCESSO!
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Perfil; // PARA CRIAR O PERFIL JUNTO COM O USUÁRIO
 
 class AutenticacaoController extends Controller
 {
     public function exibirLogin() {
-        return view('auth.login');
+        return view('autenticacao.login');
+    }
+
+    public function exibirCadastro() {
+        return view('autenticacao.cadastro');
     }
 
     public function logar(Request $request) {
@@ -33,39 +41,31 @@ class AutenticacaoController extends Controller
         ]);
     }
 
-    public function exibirCadastro() {
-        return view('auth.register');
-    }
-
-    public function cadastrar(Request $request) {
-        $request->validate([
-            'nome' => 'required|string|max:100',
-            'usuario' => 'required|string|unique:usuarios,usuario|max:50',
-            'email' => 'required|string|email|unique:usuarios,email|max:150',
-            'senha' => 'required|string|min:6',
-            'dia_nascimento' => 'required|numeric|between:1,31',
-            'mes_nascimento' => 'required|numeric|between:1,12',
-            'ano_nascimento' => 'required|numeric|between:1920,' . date('Y'),
+    public function registrar(Request $requisicao)
+    {
+        $requisicao->validate([
+            'nome' => 'required|string|max:255',
+            'username' => 'required|string|alpha_num|max:30|unique:usuarios,username', // VALIDAÇÃO: apenas letras e números, único no banco
+            'email' => 'required|string|email|max:255|unique:usuarios',
+            'senha' => 'required|string|min:6|confirmed',
         ]);
 
-        $dataNascimentoCompleta = "{$request->ano_nascimento}-{$request->mes_nascimento}-{$request->dia_nascimento}";
-
-        $novoUsuario = Usuario::create([
-            'nome' => $request->nome,
-            'usuario' => $request->usuario,
-            'email' => $request->email,
-            'senha' => Hash::make($request->senha),
-            'data_nascimento' => $dataNascimentoCompleta,
+        $usuario = Usuario::create([
+            'nome' => $requisicao->nome,
+            'username' => strtolower($requisicao->username), // Salva sempre em minúsculo para padronizar
+            'email' => $requisicao->email,
+            'senha' => Hash::make($requisicao->senha),
+            'status' => 'ativo',
         ]);
 
+        // Cria o perfil...
         Perfil::create([
-            'id_usuario' => $novoUsuario->id_usuario,
-            'tipo' => 'leitor',
-            'bio' => 'Olá! Entrei agora no Scribo.',
+            'fk_id_usuario' => $usuario->id_usuario,
+            'bio' => 'Olá! Acabei de me juntar ao Scribo.',
+            'tipo' => 'comum'
         ]);
 
-        Auth::login($novoUsuario);
-
+        Auth::login($usuario);
         return redirect()->route('feed');
     }
 
@@ -74,5 +74,17 @@ class AutenticacaoController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('inicial');
+    }
+
+    public function enviarRecuperacao(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        return back()->with(
+            'sucesso',
+            'Caso o e-mail exista, enviaremos as instruções de recuperação.'
+        );
     }
 }

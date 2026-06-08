@@ -1,0 +1,64 @@
+.boas-vindas-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 70px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 80px;
+    padding: 40px 30px;
+}
+
+.coluna-texto{
+    flex: 1;
+    max-width: 500px;
+}
+
+.coluna-ilustracao{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.coluna-texto h1{
+    font-size: 4rem;
+    line-height: 1.1;
+    color: #4c2b75;
+}
+
+.coluna-texto h1 span{
+    color: #f2994a;
+}
+
+.coluna-texto p{
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.acoes-iniciais{
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.card-ilustrado{
+    width: 120px;
+    height: 120px;
+
+    background: #4c2b75;
+    border-radius: 24px;
+
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding: 30px;
+}

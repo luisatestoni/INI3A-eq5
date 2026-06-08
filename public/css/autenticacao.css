@@ -1,0 +1,364 @@
+/* Layout da Home Inicial */
+.boas-vindas-container{
+    min-height:calc(100vh - 70px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
+}
+
+.coluna-texto{
+    width:45%;
+}
+
+.coluna-texto h1{
+    font-size:62px;
+    line-height:1.05;
+    color:#42227A;
+    font-weight:500;
+    margin-bottom:25px;
+}
+
+.coluna-texto h1 span{
+    color:#f2994a;
+}
+
+.coluna-texto p{
+    max-width:380px;
+    color:#222;
+    font-size:18px;
+    line-height:1.5;
+    margin-bottom:40px;
+}
+.acoes-iniciais{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+/* Formulários */
+.caixa-autenticacao{
+    max-width:650px;
+    margin:20px auto;
+    padding:10px 0 30px;
+    background:transparent;
+    box-shadow:none;
+    border-radius:0;
+}
+
+.caixa-autenticacao h2{
+    text-align:center;
+    color:#4c2b75;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:35px;
+}
+
+.caixa-autenticacao > p{
+    color: #4c2b75;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.caixa-autenticacao form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.campo-grupo{
+    width:100%;
+    max-width:420px;
+    margin-bottom:18px;
+}
+
+.campo-grupo label{
+    display:block;
+    color:#4c2b75;
+    font-size:12px;
+    font-weight:500;
+    margin-bottom:6px;
+}
+
+.campo-grupo input{
+    width:100%;
+    height:44px;
+    padding:0 15px;
+    border:1px solid #bdb7c7;
+    border-radius:8px;
+    background:#fff;
+    outline:none;
+    font-size:14px;
+}
+
+.campo-grupo input:focus{
+    border-color:#4c2b75;
+}
+
+/* espaço maior entre os grupos */
+.campo-grupo:nth-child(4){
+    margin-bottom:30px;
+}
+
+/* Botões Customizados padronizados */
+.btn-login-cabecalho {
+    background-color: white;
+    color: #42227A;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+.botao-laranja{
+    width:240px;
+    height:56px;
+    background:#42227A;
+    color:#f2994a;
+    border-radius:8px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+    font-weight:500;
+}
+
+.botao-laranja::after{
+    content:"→";
+    color:white;
+}
+
+.botao-roxo{
+    width:170px;
+    height:45px;
+    background:#4c2b75;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:10px;
+    transition:.2s;
+}
+
+.botao-roxo:hover, .botao-ja-tenho:hover{
+    opacity:.9;
+}
+
+.botao-ja-tenho{
+    width:170px;
+    height:45px;
+    background:#4c2b75;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    text-decoration:none;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:15px;
+    font-weight:600;
+
+    margin-top:12px;
+}
+
+.botao-link{
+    width:240px;
+    height:56px;
+    background:#f3eeeb;
+    color:#42227A;
+    border-radius:8px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+    margin-left:0;
+    border:1px solid #ddd;
+}
+
+.botao-link::after{
+    content:"→";
+    color:black;
+}
+
+.coluna-ilustracao{
+    width:45%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.coluna-ilustracao::before{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:220px;
+    background:#efbc9a;
+    border-radius:40% 60% 50% 50%;
+    transform:rotate(-25deg);
+}
+
+.card-ilustrado{
+    position:relative;
+    z-index:2;
+    width:160px;
+    height:220px;
+    background:#f7efe9;
+    border-radius:10px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#6d4ea7;
+    font-size:18px;
+    text-align:center;
+
+    transform:rotate(10deg);
+}
+
+.alerta-sucesso{
+    background:#e7f8ec;
+    color:#2d7a46;
+    border:1px solid #b8e3c3;
+    padding:12px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+/* LINKS */
+
+.links-login{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.links-login a{
+    text-decoration: none;
+    color: #f2994a;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.links-login a:hover{
+    text-decoration: underline;
+}
+
+/* ==========================
+   TABLET
+========================== */
+
+@media (max-width: 1024px){
+
+    .boas-vindas-container{
+        padding: 40px;
+        gap: 40px;
+    }
+
+    .coluna-texto h1{
+        font-size: 50px;
+    }
+
+    .coluna-texto p{
+        font-size: 16px;
+    }
+
+}
+
+
+@media (max-width: 768px){
+
+    .boas-vindas-container{
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 25px;
+        gap: 50px;
+    }
+
+    .coluna-texto,
+    .coluna-ilustracao{
+        width: 100%;
+    }
+
+    .coluna-texto{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .coluna-texto h1{
+        font-size: 42px;
+        margin-bottom: 20px;
+    }
+
+    .coluna-texto p{
+        max-width: 500px;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .acoes-iniciais{
+        width: 100%;
+        align-items: center;
+    }
+
+    .botao-laranja,
+    .botao-link{
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .coluna-ilustracao::before{
+        width: 220px;
+        height: 190px;
+    }
+}
+
+/* ==========================
+   CELULARES PEQUENOS
+========================== */
+
+@media (max-width: 480px){
+
+    .boas-vindas-container{
+        padding: 30px 20px;
+    }
+
+    .coluna-texto h1{
+        font-size: 34px;
+        line-height: 1.1;
+    }
+
+    .coluna-texto p{
+        font-size: 15px;
+    }
+
+    .card-ilustrado{
+        width: 140px;
+        height: 190px;
+        font-size: 16px;
+    }
+
+    .coluna-ilustracao::before{
+        width: 180px;
+        height: 150px;
+    }
+
+    .botao-laranja,
+    .botao-link{
+        height: 52px;
+        font-size: 14px;
+    }
+}

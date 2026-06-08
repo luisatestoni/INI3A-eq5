@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@push('estilos')
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{{ asset('css/feed.css') }}">
+@endpush
+
 @section('conteudo_interno')
 <div class="bloco-feed">
     
@@ -17,6 +23,7 @@
             <div class="conteudo-card-esquerdo">
                 <div class="dados-autor-card">
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" class="foto-autor-miniatura">
+
                     <span class="nome-autor-negrito">{{ $post->usuario->usuario }}</span>
                     <span class="tempo-postagem">• {{ $post->created_at->diffForHumans() }}</span>
                 </div>
