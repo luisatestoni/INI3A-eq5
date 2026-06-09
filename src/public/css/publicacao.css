@@ -1,0 +1,224 @@
+/* Container centralizado da folha */
+.container-nova-publicacao {
+    max-width: 680px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    position: relative;
+}
+
+/* Botão X no canto esquerdo */
+.botao-fechar-modal {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-size: 26px;
+    text-decoration: none;
+    color: #333333;
+    font-weight: 300;
+}
+
+.botao-fechar-modal:hover {
+    color: #ff7a45;
+}
+
+/* Título superior centralizado */
+.titulo-central-modal {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 25px;
+}
+
+/* Grupos de campos */
+.grupo-campo-publicacao {
+    margin-bottom: 22px;
+}
+
+.grupo-campo-publicacao label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 6px;
+}
+
+.grupo-campo-publicacao .opcional-tag {
+    color: #ff9c6e;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+/* Inputs idênticos ao layout (Fundo suave pêssego/bege e bordas laranja claro) */
+.container-input-contador {
+    position: relative;
+    width: 100%;
+}
+
+.grupo-campo-publicacao input[type="text"],
+.grupo-campo-publicacao textarea {
+    width: 100%;
+    background-color: #fffaf7; /* Tom pastel idêntico à imagem */
+    border: 1px solid #ffd8bf; /* Borda suave laranja */
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 13px;
+    color: #444;
+    outline: none;
+    resize: none; /* Desativa o redimensionamento manual do textarea */
+}
+
+/* Altera o placeholder para a cor laranja/pêssego clara do protótipo */
+.grupo-campo-publicacao input::placeholder,
+.grupo-campo-publicacao textarea::placeholder {
+    color: #ffb38a;
+}
+
+/* Pequeno contador cinza posicionado dentro ou logo abaixo na ponta direita */
+.contador-caracteres {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 11px;
+    color: #ffb38a;
+}
+
+/* Botões falsos de upload (Áudio e Capa) */
+.upload-falso-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background-color: #fffaf7;
+    border: 1px solid #ffd8bf;
+    border-radius: 8px;
+    padding: 14px 15px;
+    color: #ff7a45; /* Ícones em laranja */
+    font-size: 13px;
+}
+
+.upload-falso-container span {
+    color: #ffb38a;
+}
+
+/* Campo de Categorias com a Seta roxa */
+
+.container-input-seta input {
+    cursor: default;
+}
+
+.seta-categorias {
+    position: absolute;
+    right: 15px;
+    font-size: 18px;
+    color: #4c2b75; /* Seta roxa */
+    font-weight: bold;
+}
+
+/* Alinhamento do botão publicar à direita */
+.barra-acoes-final {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+/* Botão oval roxo escuro */
+.botao-publicar-roxo {
+    background-color: #4c2b75;
+    color: white;
+    border: none;
+    padding: 10px 50px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 25px; /* Formato cápsula da imagem */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.botao-publicar-roxo:hover {
+    background-color: #3b205c;
+}
+
+/* Campo que imita o input do mockup */
+.container-input-seta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #fffaf7; /* Tom pastel puxado pro mockup */
+    border: 1px solid #ffd8bf;
+    border-radius: 8px;
+    padding: 12px 15px;
+    min-height: 46px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.placeholder-falso {
+    color: #ffb38a;
+    font-size: 14px;
+}
+
+/* CAIXA FLUTUANTE DE CATEGORIAS (Não empurra o layout para baixo!) */
+.opcoes-categorias-dropdown {
+    position: absolute; /* Essencial para flutuar por cima igual pop-up */
+    top: 100%;          /* Gruda logo abaixo do campo de cima */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #ffd8bf;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    max-height: 250px;  /* Define uma altura máxima */
+    overflow-y: auto;   /* Adiciona a rolagem interna sutil */
+    z-index: 999;       /* Passa por cima de qualquer outro elemento */
+    margin-top: 5px;
+}
+
+/* Títulos das seções dentro da lista */
+.categoria-grupo-titulo {
+    background-color: #fff5ee;
+    color: #ff7a45;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #ffe3d1;
+    border-top: 1px solid #ffe3d1;
+}
+
+/* Cada opção clicável */
+.opcao-item {
+    padding: 10px 15px;
+    font-size: 13px;
+    color: #555555;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.opcao-item:hover {
+    background-color: #fffaf7;
+    color: #ff7a45;
+}
+
+/* Quando uma categoria é selecionada (vira a tag laranja) */
+.opcao-item.selecionado {
+    background-color: #ffd8bf;
+    color: #4c2b75;
+    font-weight: 600;
+}
+
+/* Emblemas das tags selecionadas que aparecem dentro do campo */
+.tag-badge {
+    background-color: #ff7a45;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+}

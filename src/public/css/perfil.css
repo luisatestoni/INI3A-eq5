@@ -1,0 +1,976 @@
+/* ==========================
+   PERFIL
+========================== */
+
+.container-perfil {
+    width: 100%;
+    max-width: 1000px; /* Alinhado com a largura do protótipo */
+    margin: 0 auto;    /* Centraliza o bloco no espaço restante */
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    padding-bottom: 30px;
+     position: relative;
+}
+
+/* ==========================
+   CAPA
+========================== */
+
+.capa-perfil-banner {
+    width: 100%;
+    height: 180px;
+    background-color: #6a3f9d; /* Roxo do banner de fundo */
+}
+
+.capa-perfil-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* ==========================
+   CABEÇALHO
+========================== */
+
+.cabecalho-perfil{
+    position:relative;
+    padding:0 30px;
+    margin-top:-40px;
+    display:flex;
+    gap:20px;
+}
+
+.avatar-perfil-imagem{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    border:5px solid #fff;
+    object-fit:cover;
+    background:#fff;
+}
+
+.info-perfil{
+    flex:1;
+    padding-top:45px;
+}
+
+.linha-superior{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.info-perfil h2{
+    color:#222;
+    font-size:18px;
+    font-weight:600;
+}
+
+.estatisticas{
+    display:flex;
+    gap:30px;
+}
+
+.estatisticas span{
+    font-size:14px;
+    color:#222;
+}
+
+.username{
+    color:#666;
+    margin-top:4px;
+    font-size:13px;
+}
+
+.bio{
+    margin-top:15px;
+    color:#333;
+    font-size:14px;
+}
+
+/* ==========================
+   BOTÕES
+========================== */
+
+.acoes-perfil{
+    display:flex;
+    gap:12px;
+}
+
+.btn-perfil{
+    background:#4c2b75;
+    color:white;
+    text-decoration:none;
+    padding:10px 20px;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+    border:none;
+}
+
+.btn-perfil:hover{
+    opacity:.9;
+}
+
+/* ==========================
+   CONFIGURAÇÕES
+========================== */
+
+.config-perfil {
+    position: absolute;
+    left:auto;   
+    right: 30px;
+    top: 250px;
+}
+
+
+
+.config-perfil i {
+    font-size: 24px;
+    color: #4c2b75;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.config-perfil i:hover {
+    color: #ff7a45;
+    transform: rotate(25deg);
+}
+
+.popup-config {
+    display: none; /* Controlado pelo JavaScript */
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    z-index: 999;
+    min-width: 220px;
+}
+
+.item-config {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 5px;
+    text-align: left;
+    cursor: pointer;
+    color: #334155;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.item-config:hover {
+    color: #fcca6c;
+}
+
+/* ==========================
+   ABAS
+========================== */
+
+.abas-perfil{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    border-bottom:1px solid #d9d3e2;
+    margin-bottom:20px;
+}
+
+.abas-perfil button {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.aba{
+    padding:15px 0;
+    color:#222;
+    font-size:13px;
+    cursor:pointer;
+    position:relative;
+}
+
+.aba.ativa{
+    color:#4c2b75;
+    font-weight:600;
+}
+
+.aba.ativa::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-1px;
+    width:100%;
+    height:2px;
+    background:#4c2b75;
+}
+/* ==========================
+   INPUT POSTAGEM
+========================== */
+
+.caixa-postagem{
+    padding:0 30px;
+    margin-bottom:25px;
+}
+
+.caixa-postagem input{
+    width:100%;
+    height:42px;
+    border:1px solid #b9accf;
+    border-radius:6px;
+    padding:0 15px;
+    outline:none;
+}
+
+.caixa-postagem input:focus{
+    border-color:#4c2b75;
+}
+
+/* ==========================
+   POSTS
+========================== */
+
+.lista-posts-perfil {
+    width: 100%;
+    max-width: 840px;
+    margin: 22px auto 80px;
+    padding: 0 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cartao-post-perfil {
+    position: relative;
+    width: 100%;
+    min-height: 175px;
+    background: #fff9f5;
+    border-radius: 0 0 18px 18px;
+    padding: 24px 24px 18px;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+}
+
+/* CATEGORIAS */
+
+.categorias-post-perfil {
+    position: absolute;
+    top: 0;
+    right: 24px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 330px;
+    z-index: 5;
+}
+
+.categoria-badge-perfil {
+    background: #452083;
+    color: #ff8a3d;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 0 0 10px 10px;
+    white-space: nowrap;
+}
+
+/* AUTOR */
+
+.cabecalho-post-perfil {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.link-autor-perfil {
+    display: flex;
+    text-decoration: none;
+}
+
+.foto-autor-perfil {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.foto-autor-perfil:hover {
+    transform: scale(1.05);
+}
+
+.info-autor-perfil {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.link-nome-autor-perfil {
+    text-decoration: none;
+    color: inherit;
+}
+
+.info-autor-perfil h4 {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 800;
+    color: #1f1f1f;
+}
+
+.info-autor-perfil span {
+    margin-top: 3px;
+    font-size: 9px;
+    color: #777;
+}
+
+/* CORPO */
+
+.corpo-post-perfil {
+    display: grid;
+    grid-template-columns: 1fr 330px;
+    column-gap: 28px;
+    align-items: center;
+}
+
+.texto-post-perfil {
+    min-width: 0;
+}
+
+.texto-post-perfil h3 {
+    margin: 0 0 8px;
+    font-size: 21px;
+    line-height: 1.1;
+    font-weight: 600;
+}
+
+.texto-post-perfil h3 a {
+    color: #1f1f1f;
+    text-decoration: none;
+}
+
+.texto-post-perfil p {
+    margin: 0 0 14px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #222;
+    max-width: 350px;
+}
+
+.link-ver-mais-perfil {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    color: #111;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.link-ver-mais-perfil::after {
+    content: "→";
+    font-size: 24px;
+    line-height: 0;
+    margin-left: 4px;
+}
+
+/* IMAGEM */
+
+.imagem-capa-post-perfil {
+    width: 330px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 14px;
+    align-self: center;
+}
+
+/* AÇÕES */
+
+.acoes-post-perfil {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    position: relative;
+    z-index: 2;
+}
+
+.botao-acao-perfil {
+    color: #777;
+    font-size: 15px;
+    padding: 0;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+}
+
+.botao-acao-perfil i {
+    font-size: 20px;
+    color: #7b7482;
+}
+
+.botao-acao-perfil span {
+    font-size: 10px;
+    color: #777;
+}
+
+.botao-acao-perfil:hover i,
+.botao-acao-perfil:hover span {
+    color: #ff7a3d;
+}
+
+.btn-curtir.curtido i {
+    color: #ff7a3d;
+}
+
+.compartilhar-perfil {
+    margin-left: auto;
+}
+
+.sem-postagens {
+    background: #fff9f5;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    color: #555;
+}
+
+/* RESPONSIVO DOS POSTS */
+
+@media(max-width: 768px) {
+    .lista-posts-perfil {
+        max-width: 100%;
+        padding: 0 12px 30px;
+    }
+
+    .cartao-post-perfil {
+        padding: 22px 18px 18px;
+        border-radius: 0 0 16px 16px;
+    }
+
+    .corpo-post-perfil {
+        display: block;
+    }
+
+    .texto-post-perfil h3 {
+        font-size: 18px;
+    }
+
+    .texto-post-perfil p {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .imagem-capa-post-perfil {
+        width: 100%;
+        height: 190px;
+        margin-top: 14px;
+        display: block;
+    }
+
+    .acoes-post-perfil {
+        margin-top: 16px;
+        gap: 24px;
+    }
+
+    .categorias-post-perfil {
+        right: 18px;
+        max-width: 230px;
+    }
+
+    .categoria-badge-perfil {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+
+    .config-perfil {
+        position: absolute;
+        left:auto;   
+        right: 30px;
+        top: 200px;
+    }
+}
+
+/* ==========================
+   RESPONSIVO
+========================== */
+
+@media(max-width:768px){
+
+    .cabecalho-perfil{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .linha-superior{
+        flex-direction:column;
+    }
+
+    .estatisticas{
+        justify-content:center;
+    }
+
+    .acoes-perfil{
+        justify-content:center;
+    }
+
+    .abas-perfil{
+        gap:40px;
+    }
+
+    .card-publicacao{
+        flex-direction:column;
+    }
+
+    .mini-capa{
+        width:100%;
+        height:180px;
+    }
+}
+
+/* Fundo escurecido que cobre a tela toda */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Sombra leve no fundo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Fica acima de absolutamente tudo */
+}
+
+/* Caixa branca centralizada do Mockup */
+.modal-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 24px;
+    animation: abrirModal 0.25s ease-out;
+}
+
+@keyframes abrirModal {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Cabeçalho alinhado */
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-cabecalho h2 {
+    color: #ff7a45; /* Laranja Scribo */
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.btn-fechar-modal {
+    background: none;
+    border: none;
+    color: #4c2b75; /* Roxo Scribo */
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Área da Foto do Usuário */
+.container-avatar-upload {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.avatar-preview-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.avatar-preview-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffe3d1;
+}
+
+/* Botão Redondo do Lápis */
+.botao-upload-lapis {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #ffd8bf;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #333;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.botao-upload-lapis:hover {
+    background-color: #fff5ee;
+}
+
+/* Inputs Estilizados */
+.grupo-campo-modal {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.grupo-campo-modal label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 6px;
+}
+
+.grupo-campo-modal input, 
+.grupo-campo-modal textarea {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #444;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.2s;
+}
+
+.grupo-campo-modal input:focus, 
+.grupo-campo-modal textarea:focus {
+    border-color: #ff7a45;
+}
+
+/* Botão Roxo Aplicar */
+.modal-acoes {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.btn-aplicar-alteracoes {
+    background-color: #4c2b75;
+    color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 48px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-aplicar-alteracoes:hover {
+    opacity: 0.9;
+}
+
+/* Cria uma camada por cima do card usando o link do título */
+
+
+.popup-config{
+    position:absolute;
+    top:320px;
+    right:30px;
+
+    width:280px;
+
+    background:#fff;
+    border-radius:14px;
+
+    padding:15px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+    z-index:999;
+
+    display:none;
+}
+
+.popup-config.ativo{
+    display:block;
+}
+
+.popup-config h3{
+    text-align:center;
+    font-size:16px;
+    margin-bottom:15px;
+    color:#222;
+}
+
+.item-config{
+    width:100%;
+
+    background:#4c2b75;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px 14px;
+
+    margin-bottom:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    cursor:pointer;
+
+    font-size:13px;
+}
+
+.item-config:hover{
+    opacity:.95;
+}
+
+.btn-cancelar-config{
+    width:100%;
+
+    background:#f2994a;
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px;
+
+    cursor:pointer;
+
+    margin-top:5px;
+}
+
+/* ---- LINKS DOS CONTADORES ---- */
+.link-estatistica {
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.link-estatistica:hover {
+    color: #ff7a45; /* Realce laranja ao passar o mouse */
+}
+
+/* ---- OVERLAY DO MODAL ---- */
+.modal-conexoes-overlay {
+    display: none; /* Controlado via JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000; /* Fica acima dos elementos da página */
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---- CAIXA DO MODAL ---- */
+.modal-conexoes-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: surgimentoModal 0.2s ease-out;
+}
+
+.modal-conexoes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #efefef;
+}
+
+.modal-conexoes-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.btn-fechar-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #262626;
+    line-height: 1;
+    padding: 0;
+}
+
+/* Lista Interna de Usuários */
+.modal-conexoes-corpo {
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Linha de cada Usuário (Item) */
+.modal-item-usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-item-usuario .avatar-link img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #dbdbdb;
+}
+
+.modal-item-usuario .info-link {
+    flex: 1;
+    text-decoration: none;
+    color: #262626;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.modal-item-usuario .info-link:hover {
+    text-decoration: underline;
+}
+
+/* Mensagens de Feedback */
+.modal-conexoes-vazio,
+.modal-conexoes-carregando {
+    text-align: center;
+    color: #999999;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+@keyframes surgimentoModal {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ---- CABEÇALHO ---- */
+.modal-conexoes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #efefef;
+}
+
+.modal-conexoes-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.btn-fechar-modal-conexoes {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #262626;
+    padding: 0;
+    line-height: 1;
+}
+
+/* ---- LISTAGEM ---- */
+.modal-conexoes-corpo {
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ---- ITEM DO USUÁRIO ---- */
+.modal-item-usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-item-usuario .avatar-link img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #dbdbdb;
+}
+
+.modal-item-usuario .info-link {
+    text-decoration: none;
+    color: #262626;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.modal-item-usuario .info-link:hover {
+    text-decoration: underline;
+}
+
+/* ---- FEEDBACKS ---- */
+.modal-conexoes-vazio,
+.modal-conexoes-carregando {
+    text-align: center;
+    color: #8e8e8e;
+    padding: 24px 0;
+    font-size: 14px;
+    margin: 0;
+}
