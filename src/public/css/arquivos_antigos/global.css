@@ -1,0 +1,809 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+
+h1, h2, h3, .logo-scribo {
+
+    font-weight: 700; /* Super negrito para as logos e títulos principais */
+
+}
+
+
+
+h4, button, .item-aba {
+
+    font-weight: 500; /* Peso médio para sublinks e botões */
+
+}
+
+
+
+body {
+
+    background-color: #f5f4f8;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+}
+
+
+
+/* Cabeçalho Fixo */
+
+.cabecalho-principal {
+
+    background-color: #4c2b75;
+
+    color: white;
+
+    height: 70px;
+
+    width: 100%;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+}
+
+
+
+.container-cabecalho {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    height: 100%;
+
+    padding: 0 24px;
+
+}
+
+
+
+.bloco-esquerda, .bloco-direita { width: 150px; display: flex; align-items: center; }
+
+.bloco-direita { justify-content: flex-end; gap: 20px; }
+
+.bloco-centro { display: flex; justify-content: center; flex: 1; }
+
+
+
+/* Sub-abas brancas (Alinhamento Horizontal Perfeito) */
+
+.abas-feed {
+
+    display: flex;
+
+    justify-content: center; /* Centraliza as guias na tela como na imagem */
+
+    gap: 60px;
+
+    background-color: #FFF9F5;
+
+    border-bottom: 1px solid #f0f0f0;
+
+    height: 48px;
+
+    width: 100%;
+
+}
+
+
+
+.item-aba {
+
+    text-decoration: none;
+
+    color: #666666;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    padding: 0 10px;
+
+}
+
+
+
+.item-aba.ativo {
+
+    color: #ff7a45; /* Laranja selecionado */
+
+}
+
+
+
+.item-aba.ativo::after {
+
+    content: '';
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background-color: #ff7a45;
+
+    border-radius: 3px 3px 0 0;
+
+}
+
+
+
+/* Barra Lateral Fixa na Esquerda */
+
+.barra-lateral {
+
+    position: fixed !important;
+    top: 140px !important; /* Desce o suficiente para não bater no cabeçalho */
+    left: 40px !important;  /* Afastado fixo da borda esquerda da tela */
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    gap: 35px !important;
+
+    width: 50px !important;
+
+    z-index: 9999 !important; /* Fica por cima de absolutamente tudo */
+
+    background: transparent;
+
+}
+
+
+
+.barra-lateral .link-aba {
+
+    color: #4c2b75 !important; /* Cor roxa padrão do Scribo (muda de transparente/branco para roxo visível!) */
+
+    font-size: 26px !important;
+
+    text-decoration: none !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    width: 45px !important;
+
+    height: 45px !important;
+
+    opacity: 1 !important; /* Garante que nenhuma regra antiga esteja deixando transparente */
+
+    transition: color 0.2s, transform 0.2s;
+
+}
+
+
+
+/* O QUE ACONTECE QUANDO PASSA O MOUSE (HOVER) */
+
+.barra-lateral .link-aba:hover {
+
+    color: #ff7a45 !important; /* Vira o laranja do protótipo ao passar o mouse */
+
+    transform: scale(1.1);
+
+}
+
+ 
+
+.barra-lateral .link-aba.ativo {
+
+    color: #4c2b75; /* Mantém roxo ou mude para #ff7a45 se preferir realce */
+
+}
+
+
+
+/* Evita que o conteúdo do perfil ou feed quebre por baixo dos ícones */
+
+.conteudo-principal-site.com-barra-lateral {
+
+    padding-left: 140px !important; /* Abre o vão perfeito de 140px na esquerda */
+
+}
+
+
+
+.logo-scribo {
+
+    display: flex;
+
+    align-items: center;
+
+    height: 100%;
+
+}
+
+
+
+.logo-scribo a {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 100%;
+
+}
+
+
+
+.imagem-logo{
+
+    display:block;
+
+    height: 150px;
+
+    width:auto;
+
+}
+
+
+
+.logo-scribo span { color: #f2994a; } /* Ponto Laranja */
+
+
+
+.menu-usuario a, .botao-sair {
+
+    color: white;
+
+    text-decoration: none;
+
+    margin-left: 20px;
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+
+
+.conteudo-principal-site {
+
+    display: block !important;
+
+    width: 100% !important;
+
+    min-height: calc(100vh - 120px);
+
+    padding: 30px 20px;
+
+    padding-bottom: 120px;
+
+}
+
+
+
+.rodape-principal {
+
+    background-color: #ffffff;
+
+    text-align: center;
+
+    padding: 15px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    border-top: 1px solid #e1dbec;
+
+}
+
+
+
+.cabecalho-logado{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    width:100%;
+
+    position:relative;
+
+}
+
+
+
+.lado-esquerdo,
+
+.lado-direito{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+
+
+.centro-cabecalho{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+}
+
+
+
+.botao-icone{
+
+    background:none;
+
+    border:none;
+
+    color:#f2994a;
+
+    text-decoration:none;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+
+
+
+
+
+.icone-perfil, .icone-notificacao{
+
+    width:auto;
+
+    height:28px;
+
+    border-radius:50%;
+
+   
+
+}
+
+
+
+.icone-perfil-imagem {
+
+    height: 28px;
+
+}
+
+
+
+.avatar-usuario{
+
+    width: 34px;
+
+    height: 34px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    display: block;
+
+    border: 2px solid #f2994a;
+
+    transition: 0.2s ease;
+
+}
+
+
+
+.avatar-usuario:hover{
+
+    transform: scale(1.05);
+
+}
+
+
+
+.link-avatar{
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+}
+
+
+
+.categorias-post{
+
+    font-size:12px;
+
+    color:#f2994a;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* ==========================
+
+   RESPONSIVIDADE
+
+========================== */
+
+
+
+/* Tablets */
+
+@media (max-width: 1024px){
+
+
+
+    .container-cabecalho{
+
+        padding: 0 16px;
+
+    }
+
+
+
+    .bloco-esquerda,
+
+    .bloco-direita{
+
+        width: 100px;
+
+    }
+
+
+
+    .conteudo-principal-site.com-barra-lateral{
+        padding-left: 80px !important; /* Abre o vão perfeito de 140px na esquerda */
+
+    }
+
+
+
+    .barra-lateral{
+
+        left: 15px !important;
+
+    }
+
+
+
+    .abas-feed{
+
+        gap: 25px;
+
+    }
+
+}
+
+
+
+/* Celulares */
+
+@media (max-width: 768px){
+
+
+
+    /* Header */
+
+    .cabecalho-principal{
+
+        height: 60px;
+
+    }
+
+
+
+    .container-cabecalho{
+
+        padding: 0 12px;
+
+    }
+
+
+
+    .imagem-logo{
+
+        height: 130px;
+
+    }
+
+
+
+    .bloco-esquerda,
+
+    .bloco-direita{
+
+        width: auto;
+
+        gap: 10px;
+
+    }
+
+
+
+    .botao-icone{
+
+        font-size: 18px;
+
+    }
+
+
+
+    .avatar-usuario{
+
+        width: 30px;
+
+        height: 30px;
+
+    }
+
+
+
+    /* Abas */
+
+     .abas-feed{
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        gap: 15px;
+
+        padding: 0 15px;
+
+    }
+
+
+
+    .item-aba{
+
+        flex-shrink: 0;
+
+        white-space: nowrap;
+
+    }
+
+
+
+    /* Remove o espaço lateral */
+
+   
+
+    .conteudo-principal-site,
+
+    .conteudo-principal-site.com-barra-lateral{
+
+        padding-bottom: 120px !important;
+        padding-left: 20px !important;
+
+    }
+
+
+
+
+
+    /* Barra vira menu inferior */
+
+    .barra-lateral{
+
+        position: fixed !important;
+
+        top: auto !important;
+
+        bottom: 0 !important;
+
+        left: 0 !important;
+
+
+
+        width: 100% !important;
+
+        height: 65px;
+
+
+
+        flex-direction: row !important;
+
+        justify-content: space-around !important;
+
+        align-items: center !important;
+
+
+
+        gap: 0 !important;
+
+
+
+        background: #ffffff;
+
+        border-top: 1px solid #e5e5e5;
+
+
+
+        z-index: 9999;
+
+    }
+
+
+
+    .barra-lateral .link-aba{
+
+        width: auto !important;
+
+        height: auto !important;
+
+        font-size: 22px !important;
+
+    }
+
+
+
+    .rodape-principal{
+
+        display: none;
+
+    }
+
+}
+
+
+
+/* Celulares pequenos */
+
+@media (max-width: 480px){
+
+
+
+    .imagem-logo{
+
+        height: 130px;
+
+    }
+
+
+
+    .item-aba{
+
+        font-size: 12px;
+
+        padding: 0 12px;
+
+    }
+
+
+
+    .botao-icone{
+
+        font-size: 24px;
+
+    }
+
+
+
+    .avatar-usuario{
+
+        width: auto;
+
+        height: 30px;
+
+    }
+
+
+
+    .conteudo-principal-site{
+
+        padding: 15px 10px;
+
+    }
+
+} 
+
+.btn-login-cabecalho {
+    background-color: #fffaf7;
+    color: #482184;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 12px 7px 13px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+    transition: 0.2s ease;
+}
+
+.btn-login-cabecalho::after {
+    content: "➜";
+    font-size: 15px;
+    font-weight: 800;
+    color: #111111;
+    line-height: 1;
+}
+
+.btn-login-cabecalho:hover {
+    background-color: #ffffff;
+    transform: translateY(-1px);
+}
+
