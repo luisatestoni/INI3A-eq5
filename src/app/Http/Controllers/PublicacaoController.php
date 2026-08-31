@@ -38,7 +38,6 @@ class PublicacaoController extends BaseController
             'resumo' => 'nullable|max:500',
             'conteudo' => 'required',
             'capa' => 'nullable|image|max:10240', // Aumentado para 10MB
-            // Ajustado para aceitar extensões comuns e até 100MB se o php.ini permitir
             'podcast' => 'nullable|file|extensions:mp3,wav,ogg,m4a,aac,oga,mp4,webm|max:102400',            'categorias' => 'required|string'
         ]);
 
@@ -134,7 +133,7 @@ class PublicacaoController extends BaseController
 
         $post->save();
 
-        return back()->with('sucesso', 'Publicação atualizada com sucesso!');
+        return gi()->with('sucesso', 'Publicação atualizada com sucesso!');
     }
 
     public function deletar($id)

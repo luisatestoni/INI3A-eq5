@@ -38,7 +38,7 @@ function alternarCurtida(botao) {
 // FUNCIONALIDADE 2: ENVIAR COMENTÁRIO/RESPOSTA ASSÍNCRONO
 // -------------------------------------------------------------------------
 function enviarComentarioAssincrono(event, formulario) {
-    event.preventDefault(); // Impede o navegador de recarregar a página!
+    event.preventDefault(); // Impede o reload da página
 
     const url = formulario.action;
     const formData = new FormData(formulario);
@@ -47,37 +47,50 @@ function enviarComentarioAssincrono(event, formulario) {
         method: 'POST',
         body: formData,
         headers: {
-            'X-Requested-With': 'XMLHttpRequest' // Avisa o Laravel que é um envio AJAX
+            'X-Requested-With': 'XMLHttpRequest'
         }
     })
     .then(response => response.json())
     .then(data => {
         if (data.sucesso) {
-            // 1. Limpa o campo de texto digitado
-            formulario.querySelector('textarea').value = '';
+            // 1. Limpa o campo de texto
+            const campoTexto = formulario.querySelector('input[name="conteudo"]') || formulario.querySelector('textarea[name="conteudo"]');
+            if (campoTexto) campoTexto.value = '';
 
-            // 2. Injeta o novo comentário no HTML dinamicamente
-            const containerComentarios = document.querySelector('.lista-comentarios'); // ajuste para a sua classe de bloco
-            
+            // 2. Remove o aviso "Seja o primeiro a comentar" se ele existir
+            const semComentarios = document.querySelector('.sem-comentarios');
+            if (semComentarios) {
+                semComentarios.remove();
+            }
+
+            // 3. Injeta o novo comentário na lista
+            const containerComentarios = document.querySelector('.lista-comentarios');
             const novoHtml = `
                 <div class="comentario" style="animation: fadeIn 0.4s ease;">
-                    <img src="${data.usuario_foto}" class="avatar-comentario">
+                    <a href="${data.usuario_perfil_url}">
+                        <img src="${data.usuario_foto}" class="avatar-comentario">
+                    </a>
                     <div class="corpo-comentario">
                         <div class="topo-comentario">
-                            <strong>${data.usuario_nome}</strong>
+                            <a href="${data.usuario_perfil_url}" style="text-decoration: none; color: inherit;">
+                                <strong>${data.usuario_nome}</strong>
+                            </a>
                         </div>
                         <p>${data.conteudo}</p>
                     </div>
                 </div>
             `;
-            
-            // Coloca o novo comentário no topo ou no final da lista
             containerComentarios.insertAdjacentHTML('beforeend', novoHtml);
+
+            // 4. Atualiza os contadores na tela
+            const contadorTitulo = document.getElementById('contador-comentarios-titulo');
+            if (contadorTitulo) {
+                contadorTitulo.textContent = parseInt(contadorTitulo.textContent) + 1;
+            }
         }
     })
     .catch(error => console.error('Erro ao comentar:', error));
 }
-
 // Função para abrir e fechar o menu de três pontinhos
 function alternarMenuPost(event, menuId) {
     event.stopPropagation(); // Evita que o clique abra o link do post por acidente

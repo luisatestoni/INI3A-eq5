@@ -118,18 +118,20 @@
         </div>
 
         <!-- Seção de Comentários -->
-        <div class="secao-comentarios">
-            <h3>Comentários ({{ $post->comentarios->count() }})</h3>
+        <!-- Seção de Comentários -->
+    <div class="secao-comentarios">
+        <h3>Comentários (<span id="contador-comentarios-titulo">{{ $post->comentarios->count() }}</span>)</h3>
 
-            @if(Auth::check())
-            <form action="{{ route('comentario.salvar') }}" method="POST" class="form-comentario">
-                @csrf
-                <input type="hidden" name="id_publicacao" value="{{ $post->id_publicacao }}">
-                <input type="text" name="conteudo" placeholder="Escreva um comentário..." required>
-                <button type="submit">Publicar</button>
-            </form>
-            @endif
+        @if(Auth::check())
+        <form action="{{ route('comentario.salvar') }}" method="POST" class="form-comentario" onsubmit="enviarComentarioAssincrono(event, this)">
+            @csrf
+            <input type="hidden" name="id_publicacao" value="{{ $post->id_publicacao }}">
+            <input type="text" name="conteudo" placeholder="Escreva um comentário..." required>
+            <button type="submit">Publicar</button>
+        </form>
+        @endif
 
+        <div class="lista-comentarios">
             @forelse($post->comentarios as $comentario)
                 <div class="comentario">
                     <a href="{{ route('perfil.exibir', $comentario->usuario->id_usuario) }}">
@@ -138,7 +140,7 @@
                     <div class="corpo-comentario">
                         <div class="topo-comentario">
                             <a href="{{ route('perfil.exibir', $comentario->usuario->id_usuario) }}" style="text-decoration: none; color: inherit;">
-                                <strong>{{ $comentario->usuario->nome_usuario}}</strong>
+                                <strong>{{ $comentario->usuario->nome_usuario }}</strong>
                             </a>
                         </div>
                         <p>{{ $comentario->conteudo }}</p>
@@ -148,6 +150,7 @@
                 <div class="sem-comentarios">Seja o primeiro a comentar.</div>
             @endforelse
         </div>
+    </div>
 
     </article>
 

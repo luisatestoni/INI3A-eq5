@@ -110,6 +110,8 @@
     font-size:13px;
     font-weight:500;
     border:none;
+    cursor:pointer;
+     transition: opacity 0.2s;
 }
 
 .btn-perfil:hover{

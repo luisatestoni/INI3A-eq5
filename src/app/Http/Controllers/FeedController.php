@@ -2,13 +2,22 @@
 use Illuminate\Http\Request; 
 use App\Models\Publicacao; 
 class FeedController extends Controller { 
-    public function index()
+    public function index(Request $request)
     {
-        $publicacoes = Publicacao::with(['usuario.perfil'])
-            ->withCount('curtidas')
-            ->orderBy('data_publicacao', 'desc')
-            ->get();
+        $query = Publicacao::with(['usuario.perfil', 'curtidas', 'comentarios']);
 
-        return view('feed', compact('publicacoes'));
+        // Verifica se o usuário digitou algo na busca
+        if ($request->has('busca') && !empty($request->busca)) {
+            $termo = $request->busca;
+            
+            $query->where(function($q) use ($termo) {
+                $q->where('titulo', 'LIKE', "%{$termo}%")
+                ->orWhere('conteudo', 'LIKE', "%{$termo}%");
+            });
+        }
+
+        $posts = $query->latest()->get();
+
+        return view('feed', compact('posts'));
     }
 }
