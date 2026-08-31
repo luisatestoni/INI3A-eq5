@@ -5,6 +5,8 @@ use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PublicacaoController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\ExplorarController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -77,3 +79,8 @@ Route::middleware('auth')->group(function () {
     // Adicione esta engrenagem no bloco 'auth' das suas rotas privadas
     Route::post('/publicacao/{id}/curtir', [PublicacaoController::class, 'curtir'])->name('publicacao.curtir');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/explorar', [ExplorarController::class, 'index'])->name('explorar');
+});
+

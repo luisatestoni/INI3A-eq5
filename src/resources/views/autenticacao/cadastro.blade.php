@@ -27,7 +27,7 @@
 
         <div class="grupo-campo">
             <label class="rotulo-campo">Senha</label>
-            <input type="password" name="senha" required class="campo-texto">
+            <input type="password" name="senha" required class="campo-texto" >
         </div>
 
         <div class="grupo-campo">

@@ -1,0 +1,134 @@
+﻿3 Casos de usos
+
+
+UC01 — Cadastrar Usuário
+
+
+Ator: Usuário
+
+
+Requisito relacionado: RF1 — O sistema deve permitir que novos usuários se cadastrem criando uma conta única.
+
+
+Fluxo normal:
+
+
+1 - Usuário acessa a opção de cadastro.
+
+
+2 - Sistema apresenta o formulário de cadastro.
+
+
+3 - Usuário informa os dados necessários para criar sua conta.
+
+
+4 - Sistema verifica os dados informados.
+
+
+5 - Sistema cria a conta única do usuário.
+
+
+6 - Sistema informa que o cadastro foi realizado com sucesso.
+
+
+Extensões:
+
+
+3a - Se algum dado obrigatório não for informado, sistema solicita o preenchimento do campo.
+
+
+4a - Se algum dado informado for inválido, sistema solicita a correção.
+
+
+4b - Se já existir uma conta com os dados utilizados, sistema informa que o usuário já possui cadastro.
+
+
+
+
+UC02 — Fazer Login
+
+
+Ator: Usuário
+
+
+Requisito relacionado: RF2 — O sistema deve possuir um mecanismo de login seguro para autenticar os usuários cadastrados.
+
+
+Fluxo normal:
+
+
+1 - Usuário acessa a tela de login.
+
+
+2 - Sistema solicita as credenciais do usuário.
+
+
+3 - Usuário informa suas credenciais.
+
+
+4 - Sistema verifica as credenciais informadas.
+
+
+5 - Sistema autentica o usuário.
+
+
+6 - Sistema permite o acesso à plataforma.
+
+
+Extensões:
+
+
+3a - Se algum campo obrigatório não for informado, sistema solicita o preenchimento.
+
+
+4a - Se as credenciais estiverem incorretas, sistema informa o erro e solicita uma nova tentativa.
+
+
+4b - Se o usuário não estiver cadastrado, sistema informa que não existe uma conta correspondente.
+
+
+
+
+UC03 — Criar e Publicar Postagem
+
+
+Ator: Usuário
+
+
+Requisito relacionado: RF3 — O sistema deve oferecer aos usuários a funcionalidade de criar e publicar postagens contendo apenas texto.
+
+
+Fluxo normal:
+
+
+1 - Usuário acessa a opção de criar uma postagem.
+
+
+2 - Sistema apresenta o campo para inserção do conteúdo.
+
+
+3 - Usuário informa o texto da postagem.
+
+
+4 - Usuário solicita a publicação.
+
+
+5 - Sistema verifica o conteúdo informado.
+
+
+6 - Sistema publica a postagem.
+
+
+7 - Sistema disponibiliza a postagem no feed.
+
+
+Extensões:
+
+
+3a - Se o usuário não informar nenhum conteúdo, sistema solicita que o texto seja preenchido.
+
+
+5a - Se ocorrer um erro durante a publicação, sistema informa o usuário e solicita uma nova tentativa.
+
+
+5b - Se o conteúdo não atender às regras da plataforma, sistema solicita que o usuário faça as alterações necessárias.
