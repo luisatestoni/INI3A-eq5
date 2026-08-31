@@ -44,7 +44,7 @@ class PerfilController extends BaseController
         return view('perfil.editar', compact('usuario'));
     }
 
-    public function atualizar(Request $request)
+    public function atualizar(Request $request, $id_usuario)
     {
         $request->validate([
             'nome' => 'required|string|max:255',

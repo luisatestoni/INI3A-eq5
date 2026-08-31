@@ -19,7 +19,7 @@
 
     <div class="cabecalho-perfil">
 
-        <img src="{{ $usuario->perfil && $usuario->perfil->foto ? asset('storage/' . $usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="avatar-perfil-imagem">
+        <img src="{{ $usuario->perfil && $usuario->perfil->foto ? asset('storage/' .$usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="avatar-perfil-imagem">
 
             <div class="info-perfil">
 

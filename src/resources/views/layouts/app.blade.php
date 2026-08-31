@@ -30,7 +30,9 @@
         <i class="bi bi-house-door-fill"></i>
     </a>
 
-    <a href="#" class="link-aba" title="Explorar">
+    <a href="{{ route('explorar') }}" class="link-aba" title="Explorar"
+        class="link-aba {{ request()->routeIs('explorar') ? 'ativo' : '' }}"
+        title="Explorar">
         <i class="bi bi-compass"></i>
     </a>
 
