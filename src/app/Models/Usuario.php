@@ -84,4 +84,15 @@ class Usuario extends Authenticatable implements JWTSubject
             'fk_id_seguido'
         );
     }
+
+    public function salvos()
+    {
+        return $this->hasMany(Salvo::class, 'fk_id_usuario');
+    }
+
+    // Relação com curtidas efetuadas pelo usuário
+    public function curtidas()
+    {
+        return $this->hasMany(Curtida::class, 'fk_id_usuario');
+    }
 }

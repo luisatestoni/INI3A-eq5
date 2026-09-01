@@ -18,4 +18,15 @@ class Perfil extends Model
     {
         return $this->belongsTo(Usuario::class, 'fk_id_usuario', 'id_usuario');
     }
+
+    public function exibir($id)
+    {
+        $usuario = Usuario::with([
+            'publicacoes.usuario.perfil',
+            'salvos.publicacao.usuario.perfil',
+            'curtidas.publicacao.usuario.perfil'
+        ])->findOrFail($id);
+
+        return view('perfil', compact('usuario'));
+    }
 }

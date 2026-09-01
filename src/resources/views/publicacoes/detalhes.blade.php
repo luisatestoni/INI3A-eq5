@@ -102,22 +102,52 @@
         </div>
 
         <!-- Barra de Ações (Curtir, Comentar...) -->
+                <!-- Barra de Ações (Curtir, Comentar, Salvar e Compartilhar) -->
         <div class="barra-acoes">
+
+            <!-- Curtir -->
             <div class="container-curtida">
                 @php
                     $ja_curtiu = Auth::check() ? $post->curtidas->where('fk_id_usuario', Auth::id())->first() : null;
                 @endphp
-                <button type="button" class="botao-acao btn-curtir {{ $ja_curtiu ? 'curtido' : '' }}" data-id="{{ $post->id_publicacao }}" data-token="{{ csrf_token() }}" onclick="event.stopPropagation(); alternarCurtida(this)">
+                <button type="button" 
+                        class="botao-acao btn-curtir {{ $ja_curtiu ? 'curtido' : '' }}" 
+                        data-id="{{ $post->id_publicacao }}" 
+                        data-token="{{ csrf_token() }}" 
+                        onclick="event.stopPropagation(); alternarCurtida(this)">
                     <i class="bi {{ $ja_curtiu ? 'bi-heart-fill' : 'bi-heart' }}"></i>
                     <span class="contador-curtidas">{{ $post->curtidas->count() }}</span>
                 </button>
             </div>
-            <div class="botao-acao"><i class="bi bi-chat"></i> <span>{{ $post->comentarios->count() }}</span></div>
-            <button class="botao-acao"><i class="bi bi-bookmark"></i></button>
-            <button class="botao-acao"><i class="bi bi-share"></i></button>
-        </div>
 
-        <!-- Seção de Comentários -->
+            <!-- Comentários -->
+            <div class="botao-acao">
+                <i class="bi bi-chat"></i> 
+                <span>{{ $post->comentarios->count() }}</span>
+            </div>
+
+            <!-- Salvar (Espelhado com o botão de curtir) -->
+            <!-- Salvar com Contador -->
+            <div class="container-salvar">
+                @php
+                    $ja_salvou = Auth::check() ? $post->salvos->where('fk_id_usuario', Auth::id())->first() : null;
+                @endphp
+                <button type="button" 
+                        class="botao-acao btn-salvar {{ $ja_salvou ? 'salvo' : '' }}" 
+                        data-id="{{ $post->id_publicacao }}" 
+                        data-token="{{ csrf_token() }}" 
+                        onclick="event.stopPropagation(); alternarSalvar(this)">
+                    <i class="bi {{ $ja_salvou ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></i>
+                    <span class="contador-salvos">{{ $post->salvos->count() }}</span>
+                </button>
+            </div>
+
+            <!-- Compartilhar -->
+            <button type="button" class="botao-acao">
+                <i class="bi bi-share"></i>
+            </button>
+
+        </div>
         <!-- Seção de Comentários -->
     <div class="secao-comentarios">
         <h3>Comentários (<span id="contador-comentarios-titulo">{{ $post->comentarios->count() }}</span>)</h3>

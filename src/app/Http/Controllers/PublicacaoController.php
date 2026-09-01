@@ -10,6 +10,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Salvo;
+
 
 class PublicacaoController extends BaseController
 {
@@ -63,13 +65,15 @@ class PublicacaoController extends BaseController
         return redirect()->route('feed')->with('sucesso', 'Publicação criada com sucesso!');
     }
 
-    public function detalhes($id_publicacao)
+    public function detalhes($id)
     {
-        // Busca o post trazendo junto o usuário, perfil, curtidas e comentários
-        $post = \App\Models\Publicacao::with(['usuario.perfil', 'curtidas', 'comentarios.usuario.perfil'])
-                ->findOrFail($id_publicacao);
+        $post = Publicacao::with([
+            'usuario.perfil',
+            'comentarios.usuario.perfil',
+            'curtidas',
+            'salvos'
+        ])->findOrFail($id);
 
-        // Retorna a view correta de detalhes
         return view('publicacoes.detalhes', compact('post'));
     }
 
@@ -273,5 +277,26 @@ class PublicacaoController extends BaseController
 
         return back();
 
+    }
+
+    public function alternarSalvar($id)
+    {
+        $usuarioId = auth()->id();
+        
+        $salvo = Salvo::where('fk_id_usuario', $usuarioId)
+                    ->where('fk_id_publicacao', $id)
+                    ->first();
+
+        if ($salvo) {
+            $salvo->delete();
+            return response()->json(['status' => 'removido']);
+        }
+
+        Salvo::create([
+            'fk_id_usuario' => $usuarioId,
+            'fk_id_publicacao' => $id
+        ]);
+
+        return response()->json(['status' => 'salvo']);
     }
 }

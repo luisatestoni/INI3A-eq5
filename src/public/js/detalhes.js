@@ -141,3 +141,42 @@ window.addEventListener('click', function() {
         menu.style.display = 'none';
     });
 });
+
+function alternarSalvar(botao) {
+    const idPost = botao.getAttribute('data-id');
+    const token = botao.getAttribute('data-token');
+
+    fetch(`/publicacao/${idPost}/salvar`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.status === 401) {
+            window.location.href = '/login';
+            return;
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (!data) return;
+
+        const icone = botao.querySelector('i');
+        const contador = botao.querySelector('.contador-salvos');
+        let total = parseInt(contador.innerText) || 0;
+
+        if (data.status === 'salvo') {
+            botao.classList.add('salvo');
+            icone.className = 'bi bi-bookmark-fill';
+            contador.innerText = total + 1;
+        } else {
+            botao.classList.remove('salvo');
+            icone.className = 'bi bi-bookmark';
+            contador.innerText = Math.max(0, total - 1);
+        }
+    })
+    .catch(error => console.error('Erro ao atualizar salvamento:', error));
+}

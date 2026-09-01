@@ -976,3 +976,172 @@
     font-size: 14px;
     margin: 0;
 }
+
+/* --- Utilitários Gerais --- */
+.input-file-oculto {
+    display: none;
+}
+
+#modal-editar-perfil {
+    display: none;
+}
+
+.espacador-cabecalho {
+    width: 24px;
+}
+
+/* --- Modal Editar Perfil --- */
+.modal-editar-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+.imagens-modal-wrapper {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+/* Base dos Botões Lápis (Upload) */
+.botao-upload-lapis {
+    background: #ffffff;
+    border: 1px solid #ffd8bf;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Previsualização de Capa no Modal */
+.modal-capa-preview-container {
+    width: 100%;
+    height: 130px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+#capa-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.botao-lapis-capa {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+}
+
+.icone-lapis-capa {
+    font-size: 13px;
+    color: #333333;
+}
+
+/* Previsualização do Avatar no Modal */
+.container-avatar-upload {
+    position: absolute;
+    bottom: -45px;
+    left: 24px;
+    z-index: 10;
+}
+
+.avatar-preview-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+#avatar-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.botao-lapis-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.icone-lapis-avatar {
+    font-size: 11px;
+    color: #333333;
+}
+
+/* --- Estilização dos Botões de Alternância --- */
+.container-botoes-filtro {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 25px 0;
+}
+
+.grupo-botoes-alternancia {
+    display: inline-flex;
+    background-color: rgba(255, 255, 255, 0.06);
+    padding: 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 6px;
+}
+
+.btn-filtro-aba {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: none;
+    background: transparent;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.btn-filtro-aba:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Botão Selecionado */
+.btn-filtro-aba.ativo {
+    background-color: #ff7a00;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 122, 0, 0.35);
+}
+
+.btn-filtro-aba i {
+    font-size: 15px;
+}
+
+/* Estado sem publicações */
+.estado-vazio {
+    text-align: center;
+    padding: 45px 20px;
+    color: #8a8a8a;
+}
+
+.estado-vazio i {
+    font-size: 38px;
+    display: block;
+    margin-bottom: 12px;
+    color: #666666;
+}
+
+.estado-vazio p {
+    font-size: 14px;
+    margin: 0;
+}

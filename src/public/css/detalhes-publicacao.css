@@ -601,4 +601,13 @@
     .secao-comentarios {
         padding: 20px 15px;
     }
+
+    /* Estado do botão quando o post está salvo */
+    .botao-acao.btn-salvar.salvo {
+        color: #ff7a00;
+    }
+
+    .botao-acao.btn-salvar.salvo i {
+        color: #ff7a00;
+    }
 }

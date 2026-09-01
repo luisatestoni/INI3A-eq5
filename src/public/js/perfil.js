@@ -229,3 +229,46 @@ function alternarSeguir(botao) {
             modalConexoes.style.display = 'none';
         }
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    // 1. Controle das Abas Principais (Atividade, Capítulos, Salvos e curtidos)
+    const abasPrincipais = document.querySelectorAll('.abas-perfil .aba');
+    const conteudosAba = document.querySelectorAll('.conteudo-aba');
+
+    abasPrincipais.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.getAttribute('data-tab');
+
+            // Reseta botões principais e esconde todas as abas
+            abasPrincipais.forEach(b => b.classList.remove('ativa'));
+            conteudosAba.forEach(c => c.style.display = 'none');
+
+            // Ativa o botão clicado e mostra o conteúdo correspondente
+            btn.classList.add('ativa');
+            const elConteudo = document.getElementById(`aba-${targetTab}`);
+            if (elConteudo) {
+                elConteudo.style.display = 'block';
+            }
+        });
+    });
+
+    // 2. Controle dos Botões Internos (Salvos vs Curtidos)
+    const botoesFiltro = document.querySelectorAll('.btn-filtro-aba');
+    const paineisSubAba = document.querySelectorAll('.painel-conteudo-aba');
+
+    botoesFiltro.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetSubTab = btn.getAttribute('data-subtab');
+
+            botoesFiltro.forEach(b => b.classList.remove('ativo'));
+            paineisSubAba.forEach(p => p.style.display = 'none');
+
+            btn.classList.add('ativo');
+            const elSubPainel = document.getElementById(targetSubTab);
+            if (elSubPainel) {
+                elSubPainel.style.display = 'block';
+            }
+        });
+    });
+});
+

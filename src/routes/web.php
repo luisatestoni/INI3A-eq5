@@ -82,3 +82,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/explorar', [ExplorarController::class, 'index'])->name('explorar');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/publicacao/{id}/salvar', [PublicacaoController::class, 'alternarSalvar']);
+});

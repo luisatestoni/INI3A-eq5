@@ -47,4 +47,10 @@ class Publicacao extends Model
         // CORREÇÃO: Na sua migration de comentários está: fk_id_post
         return $this->hasMany(Comentario::class, 'fk_id_post', 'id_publicacao');
     }
+
+    // app/Models/Publicacao.php
+    public function salvos()
+    {
+        return $this->hasMany(Salvo::class, 'fk_id_publicacao');
+    }
 }
