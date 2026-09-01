@@ -49,8 +49,8 @@
         </div>
     </header>
     @if(Route::is('feed')) 
-        <nav class="abas-feed"> <a href="#" class="item-aba ativo">Para você</a> <a href="#" class="item-aba">Seguindo</a> <a href="#" class="item-aba">Tendências</a> <a href="#" class="item-aba">Recentes</a> </nav> @endif @if(request()->routeIs('feed') || request()->routeIs('perfil.exibir')) 
-            <<!-- 1. Barra Lateral: adicione id="btn-explorar" e onclick para abrir -->
+        <nav class="abas-feed"> <a href="#" class="item-aba ativo">Para você</a> <a href="#" class="item-aba">Seguindo</a> <a href="#" class="item-aba">Tendências</a> <a href="#" class="item-aba">Recentes</a> </nav> @endif 
+    @if(request()->routeIs('feed') || request()->routeIs('perfil.exibir') || request()->routeIs('explorar'))
 <aside class="barra-lateral">
     <a href="{{ route('feed') }}" class="link-aba {{ request()->routeIs('feed') ? 'ativo' : '' }}" title="Início">
         <i class="bi bi-house-door-fill"></i>
@@ -72,19 +72,7 @@
     </a>
 </aside>
 
-<!-- 2. Overlay / Modal de Pesquisa (Cole antes do </body>) -->
-<div id="modal-pesquisa" class="modal-pesquisa">
-    <div class="conteudo-modal-pesquisa">
-        <button class="btn-fechar-pesquisa" onclick="fecharPesquisa()">&times;</button>
-        <h3>Explorar e Pesquisar</h3>
-        <form action="{{ route('feed') }}" method="GET" class="form-pesquisa-modal">
-            <input type="text" id="campo-busca-input" name="busca" placeholder="Digite para buscar posts..." value="{{ request('busca') }}" autocomplete="off" required>
-            <button type="submit" class="btn-buscar-modal">
-                <i class="bi bi-search"></i>
-            </button>
-        </form>
-    </div>
-</div>
+
 
 </aside>
  @endif <main class="conteudo-principal-site {{ (request()->routeIs('feed') || request()->routeIs('perfil.exibir')) ? 'com-barra-lateral' : '' }}"> @yield('conteudo') </main>

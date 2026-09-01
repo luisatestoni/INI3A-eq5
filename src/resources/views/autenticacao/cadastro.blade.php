@@ -27,12 +27,12 @@
 
         <div class="grupo-campo">
             <label class="rotulo-campo">Senha</label>
-            <input type="password" name="senha" required class="campo-texto" >
+            <input type="password" name="senha" required class="campo-texto"  placeholder="Mínimo 8 caracteres, incluindo letras e números">
         </div>
 
         <div class="grupo-campo">
             <label class="rotulo-campo">Confirmar senha</label>
-            <input type="password" name="senha_confirmation" required class="campo-texto">
+            <input type="password" name="senha_confirmation" required class="campo-texto" placeholder="Confirme sua senha">
         </div>
 
         <div class="grupo-campo">

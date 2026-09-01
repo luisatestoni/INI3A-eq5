@@ -56,8 +56,7 @@ Route::middleware('auth')->group(function () {
 
     /* --- MÓDULO DE PERFIL --- */
     Route::get('/perfil/{id}', [PerfilController::class, 'exibir'])->name('perfil.exibir');
-    Route::post('/perfil/atualizar', [PerfilController::class, 'atualizar'])->name('perfil.atualizar');
-    Route::delete('/perfil/excluir', [PerfilController::class, 'excluirConta'])->name('perfil.excluir');
+    Route::post('/perfil/atualizar/{id}', [PerfilController::class, 'atualizar'])->name('perfil.atualizar');    Route::delete('/perfil/excluir', [PerfilController::class, 'excluirConta'])->name('perfil.excluir');
 
     /* --- ALTERAR SENHA --- */
     // Ajustado para bater com os nomes de rotas que criamos na view 'alterar-senha.blade.php'
@@ -83,4 +82,3 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/explorar', [ExplorarController::class, 'index'])->name('explorar');
 });
-

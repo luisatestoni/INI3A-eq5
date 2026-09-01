@@ -133,7 +133,7 @@ class PublicacaoController extends BaseController
 
         $post->save();
 
-        return gi()->with('sucesso', 'Publicação atualizada com sucesso!');
+        return back()->with('sucesso', 'Publicação atualizada com sucesso!');
     }
 
     public function deletar($id)

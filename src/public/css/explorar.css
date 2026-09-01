@@ -12,7 +12,15 @@
 .form-pesquisa {
     display: flex;
     gap: 10px;
+    background-color: #f5f4f8;
+
 }
+
+.form-pesquisa focus{
+    background-color: #f5f4f8;
+    border: none;
+}
+
 
 .input-wrapper {
     position: relative;
@@ -211,4 +219,149 @@
 .estado-inicial-explorar p, .sem-resultados p {
     font-size: 0.95rem;
     color: #777;
+}
+
+/* ==========================================
+   ESTILOS DAS PUBLICAÇÕES
+   ========================================== */
+
+.lista-posts-explorar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cartao-post-perfil {
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* Categorias / Badges */
+.categorias-post-perfil {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.categoria-badge-perfil {
+    background-color: #fff4ec;
+    color: #ff7a00;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 122, 0, 0.2);
+}
+
+/* Autor */
+.cabecalho-post-perfil {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.foto-autor-perfil {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info-autor-perfil h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.info-autor-perfil span {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.link-autor-perfil,
+.link-nome-autor-perfil {
+    text-decoration: none;
+}
+
+.link-nome-autor-perfil:hover h4 {
+    color: #ff7a00;
+}
+
+/* Conteúdo da Publicação */
+.corpo-post-perfil {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+.texto-post-perfil {
+    flex: 1;
+}
+
+.texto-post-perfil h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+}
+
+.texto-post-perfil h3 a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.texto-post-perfil h3 a:hover {
+    color: #ff7a00;
+}
+
+.texto-post-perfil p {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 10px 0;
+}
+
+.link-ver-mais-perfil {
+    color: #ff7a00;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.imagem-capa-post-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Botões de Ação (Curtidas e Comentários) */
+.acoes-post-perfil {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 12px;
+}
+
+.botao-acao-perfil {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.botao-acao-perfil:hover {
+    color: #ff7a00;
 }
