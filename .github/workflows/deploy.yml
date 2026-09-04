@@ -19,7 +19,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          PORT: "4026" # Porta customizada informada
+          REMOTE_PORT: "4026" # Porta customizada informada
           TARGET: "/var/www/equipes/26-scribo"
           SOURCE: "src/"
           ARGS: "-rltgoDzvO --delete"
