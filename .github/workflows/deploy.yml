@@ -1,0 +1,25 @@
+name: Deploy para o Servidor
+
+on:
+  push:
+    branches:
+      - main # Altere para 'master' se a sua branch principal tiver esse nome
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Sincronizar pasta src via rsync/SSH
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          PORT: "4026" # Porta customizada informada
+          TARGET: "/var/www/equipes/26-scribo"
+          SOURCE: "src/"
+          ARGS: "-rltgoDzvO --delete"
