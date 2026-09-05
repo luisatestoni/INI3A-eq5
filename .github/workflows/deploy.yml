@@ -1,9 +1,9 @@
-name: Deploy para o Servidor
+name: Deploy para o Servidor CTI
 
 on:
   push:
     branches:
-      - main # Altere para 'master' se a sua branch principal tiver esse nome
+      - main
 
 jobs:
   deploy:
@@ -17,9 +17,9 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          REMOTE_PORT: "4026" # Porta customizada informada
-          TARGET: "/var/www/equipes/26-scribo"
+          REMOTE_HOST: "projetoscti.com.br"
+          REMOTE_USER: "ra2457040"
+          REMOTE_PORT: "4026"
+          TARGET: "/home/ra2457040/public_html"
           SOURCE: "src/"
           ARGS: "-rltgoDzvO --delete"
