@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /2457040/
+
+    # Redireciona para public/ se a requisição ainda não estiver nela
+    RewriteCond %{REQUEST_URI} !^/2457040/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
