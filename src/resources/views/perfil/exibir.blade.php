@@ -69,7 +69,20 @@
                             Mensagem
                         </button>
 
+                        {{-- Botão visível apenas para Admin excluindo perfil de terceiros --}}
+                        @if(Auth::check() && Auth::user()->e_admin)
+                            <form action="{{ route('admin.usuarios.deletar', $usuario->nome_usuario) }}" 
+                                method="POST" 
+                                style="display: inline-block;"
+                                onsubmit="return confirm('ATENÇÃO: Deseja realmente excluir permanentemente o usuário {{ $usuario->nome_usuario }} e todo o seu conteúdo?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-perfil" style="background-color: #dc3545; color: #ffffff; border-color: #dc3545;">
+                                    <i class="bi bi-person-x-fill"></i> Excluir (Admin)
+                                </button>
+                            </form>
                         @endif
+                    @endif
 
                     </div>
 
@@ -153,11 +166,11 @@
                 @endif
 
                 <div class="cabecalho-post-perfil">
-                    <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-autor-perfil">
+                    <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-autor-perfil">
                         <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="foto-autor-perfil" alt="Avatar">
                     </a>
                     <div class="info-autor-perfil">
-                        <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-nome-autor-perfil">
+                        <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-nome-autor-perfil">
                             <h4>{{ $post->usuario->nome_usuario }}</h4>
                         </a>
                         <span>{{ $post->data_publicacao->diffForHumans() }}</span>
@@ -185,8 +198,24 @@
                         <i class="bi bi-chat"></i>
                         <span>{{ $post->comentarios->count() }}</span>
                     </a>
-                    <button type="button" class="botao-acao-perfil"><i class="bi bi-bookmark"></i></button>
-                    <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}" class="botao-acao-perfil compartilhar-perfil"><i class="bi bi-upload"></i></a>
+                    @php $ja_salvou = $post->salvos ? $post->salvos->where('fk_id_usuario', Auth::id())->first() : null; @endphp
+                    <button type="button" 
+                            class="botao-acao-perfil btn-salvar {{ $ja_salvou ? 'salvo' : '' }}" 
+                            data-id="{{ $post->id_publicacao }}" 
+                            data-token="{{ csrf_token() }}" 
+                            onclick="alternarSalvar(this)"
+                            title="Salvar publicação">
+                        <i class="bi {{ $ja_salvou ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></i>
+                    </button>
+                    <button type="button" 
+                        class="botao-acao btn-compartilhar" 
+                        data-id="{{ $post->id_publicacao }}"
+                        data-titulo="{{ $post->titulo }}"
+                        data-url="{{ route('publicacao.detalhes', $post->id_publicacao) }}"
+                        onclick="abrirModalCompartilharData(this)">
+                    <i class="bi bi-share"></i>
+                    <span class="contador-compartilhamentos">{{ $post->compartilhamentos ?? 0 }}</span>
+                </button>
                 </div>
             </article>
         @empty
@@ -196,12 +225,27 @@
 </div>
 
 <!-- Conteúdo 2: Capítulos (Oculto Inicialmente) -->
+
 <div class="conteudo-aba" id="aba-capitulos" style="display: none;">
+    @if($ehMeuPerfil)
+    <div class="caixa-postagem">
+        <input
+            type="text"
+            placeholder="O que está pensando?">
+    </div>
+    @endif
     <p class="sem-postagens">Nenhum capítulo encontrado.</p>
 </div>
 
 <!-- Conteúdo 3: Salvos e Curtidos (Oculto Inicialmente) -->
 <div class="conteudo-aba" id="aba-salvos" style="display: none;">
+    @if($ehMeuPerfil)
+    <div class="caixa-postagem">
+        <input
+            type="text"
+            placeholder="O que está pensando?">
+    </div>
+    @endif
     <div class="container-botoes-filtro">
         <div class="grupo-botoes-alternancia">
             <button type="button" class="btn-filtro-aba ativo" data-subtab="lista-salvos">
@@ -222,11 +266,11 @@
                 @php $post = $itemSalvo->publicacao ?? $itemSalvo; @endphp
                 <article class="cartao-post-perfil">
                     <div class="cabecalho-post-perfil">
-                        <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-autor-perfil">
+                        <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-autor-perfil">
                             <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="foto-autor-perfil" alt="Avatar">
                         </a>
                         <div class="info-autor-perfil">
-                            <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-nome-autor-perfil">
+                            <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-nome-autor-perfil">
                                 <h4>{{ $post->usuario->nome_usuario }}</h4>
                             </a>
                         </div>
@@ -254,11 +298,11 @@
                 @php $post = $itemCurtida->publicacao ?? $itemCurtida; @endphp
                 <article class="cartao-post-perfil">
                     <div class="cabecalho-post-perfil">
-                        <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-autor-perfil">
+                        <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-autor-perfil">
                             <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="foto-autor-perfil" alt="Avatar">
                         </a>
                         <div class="info-autor-perfil">
-                            <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-nome-autor-perfil">
+                            <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-nome-autor-perfil">
                                 <h4>{{ $post->usuario->nome_usuario }}</h4>
                             </a>
                         </div>
@@ -279,114 +323,7 @@
         </div>
     </div>
 </div>
-    @if($ehMeuPerfil)
-    <div class="caixa-postagem">
-        <input
-            type="text"
-            placeholder="O que está pensando?">
-    </div>
-    @endif
 
-    <div class="lista-posts-perfil">
-
-    @forelse($usuario->publicacoes as $post)
-
-        <article class="cartao-post-perfil">
-
-            @if($post->categorias)
-                <div class="categorias-post-perfil">
-                    @foreach(explode(',', $post->categorias) as $categoria)
-                        <span class="categoria-badge-perfil">
-                            {{ trim($categoria) }}
-                        </span>
-                    @endforeach
-                </div>
-            @endif
-
-            <div class="cabecalho-post-perfil">
-
-                <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-autor-perfil">
-                    <img 
-                        src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" 
-                        class="foto-autor-perfil" 
-                        alt="Avatar">
-                </a>
-
-                <div class="info-autor-perfil">
-                    <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-nome-autor-perfil">
-                        <h4>{{ $post->usuario->nome_usuario }}</h4>
-                    </a>
-
-                    <span>{{ $post->data_publicacao->diffForHumans() }}</span>
-                </div>
-
-            </div>
-
-            <div class="corpo-post-perfil">
-
-                <div class="texto-post-perfil">
-                    <h3>
-                        <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}">
-                            {{ $post->titulo }}
-                        </a>
-                    </h3>
-
-                    <p>{{ $post->resumo }}</p>
-
-                    <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}" class="link-ver-mais-perfil">
-                        Ver mais
-                    </a>
-                </div>
-
-                @if($post->capa)
-                    <img 
-                        src="{{ asset('storage/' . $post->capa) }}" 
-                        class="imagem-capa-post-perfil" >
-                @endif
-
-            </div>
-
-            <div class="acoes-post-perfil">
-
-                @php
-                    $ja_curtiu = $post->curtidas->where('fk_id_usuario', Auth::id())->first();
-                @endphp
-
-                <button type="button" 
-                        class="botao-acao-perfil btn-curtir {{ $ja_curtiu ? 'curtido' : '' }}" 
-                        data-id="{{ $post->id_publicacao }}"
-                        data-token="{{ csrf_token() }}"
-                        onclick="alternarCurtida(this)">
-                    <i class="bi {{ $ja_curtiu ? 'bi-heart-fill' : 'bi-heart' }}"></i>
-                    <span class="contador-curtidas">{{ $post->curtidas->count() }}</span>
-                </button>
-
-                <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}" class="botao-acao-perfil">
-                    <i class="bi bi-chat"></i>
-                    <span>{{ $post->comentarios->count() }}</span>
-                </a>
-
-                <button type="button" class="botao-acao-perfil">
-                    <i class="bi bi-bookmark"></i>
-                </button>
-
-                <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}" class="botao-acao-perfil compartilhar-perfil">
-                    <i class="bi bi-upload"></i>
-                </a>
-
-            </div>
-
-        </article>
-
-    @empty
-
-        <p class="sem-postagens">
-            Nenhuma publicação encontrada.
-        </p>
-
-    @endforelse
-
-</div>
 
 @if($ehMeuPerfil)
 <div class="modal-overlay" id="modal-editar-perfil">
@@ -466,5 +403,8 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/perfil.js') }}"></script> 
+    <script src="{{ asset('js/perfil.js') }}"></script>
+    <script src="{{ asset('js/compartilhar.js') }}"></script> 
+    <script src="{{ asset('js/detalhes.js') }}"></script>
+
 @endpush

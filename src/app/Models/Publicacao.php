@@ -25,6 +25,7 @@ class Publicacao extends Model
         'conteudo',
         'categorias',
         'status',
+        'compartilhamentos',
         'capa',
         'podcast',
         'data_publicacao',

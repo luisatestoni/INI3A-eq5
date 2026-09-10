@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Usuario; // ESSA LINHA SEPARA O ERRO DO SUCESSO!
 use Illuminate\Support\Facades\Auth;
@@ -104,17 +107,4 @@ class AutenticacaoController extends Controller
         return redirect()->route('inicial'); 
     }
 
-    public function enviarRecuperacao(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
-
-        return back()->with(
-            'sucesso',
-            'Caso o e-mail exista, enviaremos as instruções de recuperação.'
-        );
-
-        
-    }
 }

@@ -12,13 +12,12 @@
 .form-pesquisa {
     display: flex;
     gap: 10px;
-    background-color: #f5f4f8;
+    background-color: #f8f9fa;
 
 }
 
-.form-pesquisa focus{
-    background-color: #f5f4f8;
-    border: none;
+.form-pesquisa:focus-within {
+    background-color: #ffffff;
 }
 
 
@@ -364,4 +363,254 @@
 
 .botao-acao-perfil:hover {
     color: #ff7a00;
+}
+
+/* ===================================
+   MODO ESCURO - TELA EXPLORAR
+   =================================== */
+body.dark-mode {
+    background-color: #121016;
+}
+
+body.dark-mode .form-pesquisa {
+    background-color: #221c2e;
+    border: 1px solid #342a45;
+}
+
+body.dark-mode .form-pesquisa input {
+    color: #221c2e;
+}
+
+body.dark-mode .form-pesquisa input::placeholder {
+    color: #8f85a3;
+}
+
+body.dark-mode .card-categoria,
+body.dark-mode .card-resultado,
+body.dark-mode .item-explorar {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .titulo-categoria,
+body.dark-mode .titulo-card,
+body.dark-mode h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .subtitulo-card,
+body.dark-mode .texto-secundario {
+    color: #a49bb8;
+}
+
+body.dark-mode .tag-filtro {
+    background-color: #272036;
+    color: #d1c9e3;
+    border: 1px solid #3d3354;
+}
+
+body.dark-mode .tag-filtro.ativo {
+    background-color: #ff7a3d;
+    color: #ffffff;
+    border-color: #ff7a3d;
+}
+
+body.dark-mode .subtitulo-card,
+body.dark-mode .texto-secundario,
+body.dark-mode .descricao-categoria,
+body.dark-mode .meta-info {
+    color: #a49bb8;
+}
+
+/* Lista de Tendências / Ranking / "Em Alta" */
+body.dark-mode .item-em-alta,
+body.dark-mode .linha-resultado {
+    border-bottom: 1px solid #2a223a;
+}
+
+/* ===================================
+   MODO ESCURO - TELA EXPLORAR (Mapeamento Exato Blade)
+   =================================== */
+
+/* Container Principal e Telas de Estado (Inicial / Sem Resultados) */
+body.dark-mode .container-explorar {
+    color: #f0edf6;
+}
+
+body.dark-mode .estado-inicial-explorar h3,
+body.dark-mode .sem-resultados h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .estado-inicial-explorar p,
+body.dark-mode .sem-resultados p,
+body.dark-mode .icone-destaque-explorar,
+body.dark-mode .sem-resultados i {
+    color: #a49bb8;
+}
+
+/* Barra de Pesquisa */
+body.dark-mode .form-pesquisa {
+    background-color: transparent;
+}
+
+body.dark-mode .input-wrapper {
+    background-color: #241e31;
+    border: 1px solid #3b3050;
+    border-radius: 8px;
+}
+
+body.dark-mode .input-wrapper input {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+body.dark-mode .input-wrapper input::placeholder {
+    color: #817699;
+}
+
+body.dark-mode .icone-busca,
+body.dark-mode .btn-limpar-busca {
+    color: #a49bb8;
+}
+
+body.dark-mode .btn-buscar {
+    background-color: #ff7a3d;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-buscar:hover {
+    background-color: #e06b00;
+}
+
+/* Abas de Filtro (Tudo / Publicações / Pessoas) */
+body.dark-mode .abas-explorar {
+    border-bottom: 1px solid #2d253f;
+}
+
+body.dark-mode .aba-item {
+    color: #a49bb8;
+    background-color: transparent;
+}
+
+body.dark-mode .aba-item:hover {
+    color: #ffffff;
+}
+
+body.dark-mode .aba-item.ativa {
+    color: #ff7a3d;
+    border-bottom: 2px solid #ff7a3d;
+}
+
+/* Títulos das Seções (Pessoas e Publicações) */
+body.dark-mode .titulo-secao {
+    color: #ffffff;
+    border-bottom: 1px solid #2d253f;
+}
+
+/* -----------------------------------
+   1. CARDS DE USUÁRIOS (Pessoas)
+   ----------------------------------- */
+body.dark-mode .card-usuario-explorar {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+}
+
+body.dark-mode .card-usuario-explorar:hover {
+    background-color: #241e32;
+    border-color: #3b3050;
+}
+
+body.dark-mode .avatar-user {
+    border: 2px solid #3b3050;
+}
+
+body.dark-mode .nome-user {
+    color: #ffffff;
+}
+
+body.dark-mode .username-user {
+    color: #a87ff3; /* Roxo claro em destaque para o @arroba */
+}
+
+body.dark-mode .bio-user {
+    color: #a49bb8;
+}
+
+body.dark-mode .btn-ver-perfil {
+    background-color: #272036;
+    color: #ffffff;
+    border: 1px solid #3d3354;
+}
+
+body.dark-mode .btn-ver-perfil:hover {
+    background-color: #ff7a3d;
+    border-color: #ff7a3d;
+    color: #ffffff;
+}
+
+/* -----------------------------------
+   2. CARDS DE POSTS (Publicações)
+   ----------------------------------- */
+body.dark-mode .cartao-post-perfil {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+}
+
+body.dark-mode .categoria-badge-perfil {
+    background-color: #2d243c;
+    color: #ff7a3d;
+    border: 1px solid #3d3354;
+}
+
+body.dark-mode .foto-autor-perfil {
+    border: 1px solid #3b3050;
+}
+
+body.dark-mode .link-nome-autor-perfil h4 {
+    color: #ffffff;
+}
+
+body.dark-mode .info-autor-perfil span {
+    color: #8f85a3;
+}
+
+body.dark-mode .texto-post-perfil h3 a {
+    color: #ffffff;
+}
+
+body.dark-mode .texto-post-perfil h3 a:hover {
+    color: #ff7a3d;
+}
+
+body.dark-mode .texto-post-perfil p {
+    color: #d1c9e3;
+}
+
+body.dark-mode .link-ver-mais-perfil {
+    color: #ff7a3d;
+}
+
+body.dark-mode .imagem-capa-post-perfil {
+    border: 1px solid #2d253f;
+    border-radius: 8px;
+}
+
+/* Rodapé / Botões de Ação do Post (Curtir, Comentar) */
+body.dark-mode .acoes-post-perfil {
+    border-top: 1px solid #2a223a;
+}
+
+body.dark-mode .botao-acao-perfil {
+    color: #a49bb8;
+}
+
+body.dark-mode .botao-acao-perfil:hover {
+    color: #ff7a3d;
+    background-color: #272036;
 }

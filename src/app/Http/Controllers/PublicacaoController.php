@@ -11,17 +11,59 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Salvo;
+use App\Notifications\GeralNotification;
+use Illuminate\Support\Str;
 
 
 class PublicacaoController extends BaseController
 {
-    public function listarFeed()
+    public function listarFeed(Request $request)
     {
-        $publicacoes = Publicacao::with(['usuario.perfil'])
-            ->orderBy('data_publicacao', 'desc')
-            ->get();
+        $aba = $request->query('aba', 'para-voce');
+        $categoriaSelecionada = $request->query('categoria');
+        $ordem = $request->query('ordem', 'recentes');
 
-        return view('feed', compact('publicacoes'));
+        $query = Publicacao::with(['usuario.perfil', 'curtidas', 'comentarios', 'salvos'])
+            ->withCount(['curtidas', 'comentarios', 'salvos'])
+            ->where('status', 'publicado');
+
+        // Filtro por Categoria se especificado
+        if (!empty($categoriaSelecionada)) {
+            $query->where('categorias', 'like', '%' . $categoriaSelecionada . '%');
+        }
+
+        // Filtro da Aba
+        if ($aba === 'seguindo') {
+            $usuarioLogado = Auth::user();
+            if ($usuarioLogado) {
+                $idsSeguindo = $usuarioLogado->seguindo()->pluck('usuarios.id_usuario')->toArray();
+                $query->whereIn('fk_id_usuario', $idsSeguindo);
+            } else {
+                $query->whereRaw('1 = 0'); // Vazio para visitante sem seguidos
+            }
+        }
+
+        // Ordenação
+        if ($ordem === 'curtidas') {
+            $query->orderBy('curtidas_count', 'desc')
+                  ->orderBy('data_publicacao', 'desc');
+        } elseif ($ordem === 'comentarios') {
+            $query->orderBy('comentarios_count', 'desc')
+                  ->orderBy('data_publicacao', 'desc');
+        } elseif ($aba === 'tendencias' && $ordem === 'recentes') {
+            $query->orderByRaw('(curtidas_count * 2 + comentarios_count * 3 + salvos_count * 2 + COALESCE(compartilhamentos, 0) * 4) DESC')
+                  ->orderBy('data_publicacao', 'desc');
+        } else {
+            // Mais recentes (publicados mais recentemente)
+            $query->orderBy('data_publicacao', 'desc');
+        }
+
+        $publicacoes = $query->get();
+
+        // Categorias para a modal de filtros
+        $categorias = Categoria::all();
+
+        return view('feed', compact('publicacoes', 'aba', 'categoriaSelecionada', 'ordem', 'categorias'));
     }
 
     public function criar()
@@ -190,37 +232,73 @@ class PublicacaoController extends BaseController
             return response()->json(['erro' => 'Não autorizado'], 401);
         }
 
-        $curtidaExistente = \App\Models\Curtida::where('fk_id_usuario', $id_usuario)
-                                            ->where('fk_id_publicacao', $id_publicacao)
-                                            ->first();
+        $publicacao = Publicacao::with('usuario')->findOrFail($id_publicacao);
+
+        $curtidaExistente = Curtida::where('fk_id_usuario', $id_usuario)
+                                    ->where('fk_id_publicacao', $id_publicacao)
+                                    ->first();
 
         if ($curtidaExistente) {
             $curtidaExistente->delete();
             $curtido = false;
         } else {
-            $novaCurtida = new \App\Models\Curtida();
+            $novaCurtida = new Curtida();
             $novaCurtida->fk_id_usuario = $id_usuario;
             $novaCurtida->fk_id_publicacao = $id_publicacao;
             $novaCurtida->save();
             $curtido = true;
+
+            // Dispara notificação para o autor caso não seja o próprio autor
+            if ($publicacao->fk_id_usuario !== $id_usuario && $publicacao->usuario) {
+                $usuarioLogado = Auth::user();
+                $publicacao->usuario->notify(new GeralNotification(
+                    $usuarioLogado,
+                    'curtida',
+                    'curtiu sua publicação: "' . Str::limit($publicacao->titulo, 35) . '"',
+                    route('publicacao.detalhes', $publicacao->id_publicacao),
+                    $publicacao->titulo
+                ));
+            }
         }
 
         // Conta quantas curtidas o post tem no total agora
-        $totalCurtidas = \App\Models\Curtida::where('fk_id_publicacao', $id_publicacao)->count();
+        $totalCurtidas = Curtida::where('fk_id_publicacao', $id_publicacao)->count();
 
-        // RETORNO CORRIGIDO: Atende perfeitamente ao "data.sucesso" do detalhes.js
         return response()->json([
             'sucesso' => true,
             'curtido' => $curtido,
             'total_curtidas' => $totalCurtidas
         ]);
     }
+
+    public function compartilhar($id)
+    {
+        $post = Publicacao::with('usuario')->findOrFail($id);
+        $post->increment('compartilhamentos');
+
+        $idUsuario = Auth::id();
+        if ($idUsuario && $post->fk_id_usuario !== $idUsuario && $post->usuario) {
+            $usuarioLogado = Auth::user();
+            $post->usuario->notify(new GeralNotification(
+                $usuarioLogado,
+                'compartilhamento',
+                'compartilhou sua publicação: "' . Str::limit($post->titulo, 35) . '"',
+                route('publicacao.detalhes', $post->id_publicacao),
+                $post->titulo
+            ));
+        }
+
+        return response()->json([
+            'sucesso' => true,
+            'total_compartilhamentos' => $post->compartilhamentos,
+            'url' => route('publicacao.detalhes', $post->id_publicacao),
+            'titulo' => $post->titulo
+        ]);
+    }
      // --- AJUSTADO EXATAMENTE PARA O SEU "data.status === 'sucesso'" ---
 
     public function comentar(Request $requisicao)
-
     {
-
         $requisicao->validate([
 
             'id_publicacao' => 'required|integer|exists:publicacoes,id_publicacao',

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view) {
+            $totalNaoLidas = Auth::check() 
+                ? Auth::user()->unreadNotifications->count() // Ou a sua lógica de banco
+                : 0;
+
+            $view->with('totalNaoLidas', $totalNaoLidas);
+        });
     }
 }

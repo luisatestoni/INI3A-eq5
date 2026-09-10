@@ -350,6 +350,14 @@
     transition: transform 0.2s ease;
     display: inline-block;
 }
+
+.container-podcast{
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
 /* =========================
    RESPONSIVO
 ========================= */
@@ -610,4 +618,81 @@
     .botao-acao.btn-salvar.salvo i {
         color: #ff7a00;
     }
+}
+
+/* ===================================
+   MODO ESCURO - TELA DETALHES
+   =================================== */
+body.dark-mode {
+    background-color: #121016;
+    color: #f0edf6;
+}
+
+body.dark-mode .container-detalhes,
+body.dark-mode .card-detalhes,
+body.dark-mode .secao-comentarios
+{
+    background-color: #1c1728;
+    border-color: #2d253f;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .container-podcast {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+body.dark-mode .titulo-detalhes,
+body.dark-mode .nome-autor,
+body.dark-mode .comentario-texto,
+body.dark-mode h1,
+body.dark-mode p,
+body.dark-mode .texto-post,
+body.dark-mode h4,
+body.dark-mode strong
+{  
+    color: #ffffff;
+}
+
+body.dark-mode .meta-informacao,
+body.dark-mode .comentario-data {
+    color: #9e93b3;
+}
+
+body.dark-mode .item-comentario {
+    border-bottom: 1px solid #2a223a;
+}
+
+body.dark-mode .form-comentario input {
+    background-color: #241e31;
+    color: #ffffff;
+    border: 1px solid #3b3050;
+}
+
+body.dark-mode .form-comentario input::placeholder {
+    color: #817699;
+}
+
+body.dark-mode .form-comentario input:focus {
+    border-color: #ff7a3d;
+}
+
+body.dark-mode .btn-voltar,
+body.dark-mode .btn-acao-secundaria {
+    background-color: #272036;
+    color: #ffffff;
+}
+
+body.dark-mode .indicador-resposta{
+    color: #ff914d !important;
+    background-color: #272036 !important;
+}
+
+.btn-responder{
+    color: #ff914d !important;
+    border:none;
+    background:none;
 }

@@ -21,6 +21,10 @@ class Usuario extends Authenticatable implements JWTSubject
         'senha',
     ];
 
+    protected $casts = [
+        'e_admin' => 'boolean',
+    ];
+
     // --- MÉTODOS OBRIGATÓRIOS DO JWT ---
     
     // Identificador único guardado no Subject (sub) do Token

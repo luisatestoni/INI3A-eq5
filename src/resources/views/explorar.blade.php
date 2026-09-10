@@ -85,13 +85,13 @@
                     <div class="grid-usuarios-explorar">
                         @foreach($usuarios as $user)
                             <div class="card-usuario-explorar">
-                                <a href="{{ route('perfil.exibir', $user->id_usuario) }}" class="avatar-link">
+                                <a href="{{ route('perfil.exibir', $user->nome_usuario) }}" class="avatar-link">
                                     <img src="{{ $user->perfil && $user->perfil->foto ? asset('storage/' . $user->perfil->foto) : asset('imagens/perfil-v1.png') }}" 
                                          alt="{{ $user->nome }}" class="avatar-user">
                                 </a>
 
                                 <div class="info-user-explorar">
-                                    <a href="{{ route('perfil.exibir', $user->id_usuario) }}" class="nome-user">
+                                    <a href="{{ route('perfil.exibir', $user->nome_usuario) }}" class="nome-user">
                                         {{ $user->nome }}
                                     </a>
                                     <span class="username-user">{{ '@' . ($user->nome_usuario ?? 'usuario') }}</span>
@@ -101,7 +101,7 @@
                                     @endif
                                 </div>
 
-                                <a href="{{ route('perfil.exibir', $user->id_usuario) }}" class="btn-ver-perfil">
+                                <a href="{{ route('perfil.exibir', $user->nome_usuario) }}" class="btn-ver-perfil">
                                     Ver perfil
                                 </a>
                             </div>
@@ -130,13 +130,13 @@
                                 @endif
 
                                 <div class="cabecalho-post-perfil">
-                                    <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-autor-perfil">
+                                    <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-autor-perfil">
                                         <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" 
                                              class="foto-autor-perfil" alt="Avatar">
                                     </a>
 
                                     <div class="info-autor-perfil">
-                                        <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" class="link-nome-autor-perfil">
+                                        <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-nome-autor-perfil">
                                             <h4>{{ $post->usuario->nome_usuario }}</h4>
                                         </a>
                                         <span>{{ \Carbon\Carbon::parse($post->data_publicacao)->diffForHumans() }}</span>

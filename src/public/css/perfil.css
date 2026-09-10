@@ -1145,3 +1145,310 @@
     font-size: 14px;
     margin: 0;
 }
+
+
+/* ===================================
+   MODO ESCURO - TELA PERFIL (Mapeamento Exato Blade & CSS)
+   =================================== */
+
+/* Container Principal e Cabeçalho */
+body.dark-mode .container-perfil {
+    background-color: #181325;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .avatar-perfil-imagem {
+    border-color: #181325;
+    background-color: #181325;
+}
+
+body.dark-mode .info-perfil h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .username {
+    color: #a87ff3;
+}
+
+body.dark-mode .bio {
+    color: #d1c9e3;
+}
+
+body.dark-mode .link-estatistica {
+    color: #a49bb8;
+}
+
+body.dark-mode .link-estatistica strong {
+    color: #ffffff;
+}
+
+body.dark-mode .link-estatistica:hover {
+    color: #ff7a3d;
+}
+
+/* Botões de Ação do Perfil */
+body.dark-mode .btn-perfil {
+    background-color: #2d243c;
+    color: #ffffff;
+    border: 1px solid #3d3354;
+}
+
+body.dark-mode .btn-perfil:hover {
+    background-color: #ff7a3d;
+    border-color: #ff7a3d;
+}
+
+body.dark-mode .btn-perfil.seguindo {
+    background-color: #ff7a3d;
+    color: #ffffff;
+}
+
+/* Ícone e Popup de Configurações */
+body.dark-mode .config-perfil i {
+    color: #a87ff3;
+}
+
+body.dark-mode .config-perfil i:hover {
+    color: #ff7a3d;
+}
+
+body.dark-mode .popup-config {
+    background-color: #241e31;
+    border: 1px solid #3b3050;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .popup-config h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .item-config {
+    background-color: #2d243c;
+    color: #ffffff;
+}
+
+body.dark-mode .item-config:hover {
+    background-color: #3d3354;
+    color: #ff7a3d;
+}
+
+/* Navegação por Abas */
+body.dark-mode .abas-perfil {
+    border-bottom: 1px solid #2d253f;
+}
+
+body.dark-mode .aba {
+    color: #a49bb8;
+}
+
+body.dark-mode .aba:hover {
+    color: #ffffff;
+}
+
+body.dark-mode .aba.ativa {
+    color: #ff7a3d;
+}
+
+body.dark-mode .aba.ativa::after {
+    background-color: #ff7a3d;
+}
+
+/* Campo de Postagem Rápida */
+body.dark-mode .caixa-postagem input {
+    background-color: #241e31;
+    border: 1px solid #3b3050;
+    color: #ffffff;
+}
+
+body.dark-mode .caixa-postagem input::placeholder {
+    color: #817699;
+}
+
+body.dark-mode .caixa-postagem input:focus {
+    border-color: #ff7a3d;
+}
+
+/* Cards de Publicações */
+body.dark-mode .cartao-post-perfil {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .categoria-badge-perfil {
+    background-color: #2d243c;
+    color: #ff7a3d;
+    border: 1px solid #3d3354;
+}
+
+body.dark-mode .info-autor-perfil h4,
+body.dark-mode .texto-post-perfil h3 a {
+    color: #ffffff;
+}
+
+body.dark-mode .texto-post-perfil h3 a:hover {
+    color: #ff7a3d;
+}
+
+body.dark-mode .info-autor-perfil span {
+    color: #8f85a3;
+}
+
+body.dark-mode .texto-post-perfil p {
+    color: #d1c9e3;
+}
+
+body.dark-mode .link-ver-mais-perfil {
+    color: #ff7a3d;
+}
+
+body.dark-mode .imagem-capa-post-perfil {
+    border: 1px solid #2d253f;
+}
+
+body.dark-mode .acoes-post-perfil {
+    border-top: 1px solid #2a223a;
+}
+
+body.dark-mode .botao-acao-perfil,
+body.dark-mode .botao-acao-perfil i,
+body.dark-mode .botao-acao-perfil span {
+    color: #a49bb8;
+}
+
+body.dark-mode .botao-acao-perfil:hover i,
+body.dark-mode .botao-acao-perfil:hover span {
+    color: #ff7a3d;
+}
+
+body.dark-mode .btn-curtir.curtido i,
+body.dark-mode .btn-salvar.salvo i {
+    color: #ff7a3d;
+}
+
+body.dark-mode .sem-postagens {
+    background-color: #1c1728;
+    color: #a49bb8;
+    border: 1px solid #2d253f;
+}
+
+/* Sub-abas (Salvos / Curtidos) */
+body.dark-mode .grupo-botoes-alternancia {
+    background-color: #241e31;
+    border: 1px solid #3b3050;
+}
+
+body.dark-mode .btn-filtro-aba {
+    color: #a49bb8;
+}
+
+body.dark-mode .btn-filtro-aba:hover {
+    color: #ffffff;
+    background-color: #2d243c;
+}
+
+body.dark-mode .btn-filtro-aba.ativo {
+    background-color: #ff7a3d;
+    color: #ffffff;
+}
+
+body.dark-mode .estado-vazio {
+    color: #a49bb8;
+}
+
+body.dark-mode .estado-vazio i {
+    color: #817699;
+}
+
+/* Modais (Editar Perfil & Seguidores/Seguindo) */
+body.dark-mode .modal-overlay,
+body.dark-mode .modal-conexoes-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+body.dark-mode .modal-container,
+body.dark-mode .modal-conexoes-container {
+    background-color: #1c1728;
+    border: 1px solid #2d253f;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .modal-cabecalho h2,
+body.dark-mode .modal-conexoes-header h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .modal-conexoes-header {
+    border-bottom: 1px solid #2d253f;
+}
+
+body.dark-mode .btn-fechar-modal,
+body.dark-mode .btn-fechar-modal-conexoes {
+    color: #a49bb8;
+}
+
+body.dark-mode .btn-fechar-modal:hover,
+body.dark-mode .btn-fechar-modal-conexoes:hover {
+    color: #ff7a3d;
+}
+
+body.dark-mode .modal-capa-preview-container {
+    background-color: #241e31;
+}
+
+body.dark-mode #avatar-preview {
+    border-color: #1c1728;
+}
+
+body.dark-mode .botao-upload-lapis {
+    background-color: #241e31;
+    border-color: #3b3050;
+    color: #ffffff;
+}
+
+body.dark-mode .botao-upload-lapis:hover {
+    background-color: #2d243c;
+}
+
+body.dark-mode .icone-lapis-capa,
+body.dark-mode .icone-lapis-avatar {
+    color: #ffffff;
+}
+
+body.dark-mode .grupo-campo-modal label {
+    color: #d1c9e3;
+}
+
+body.dark-mode .grupo-campo-modal input,
+body.dark-mode .grupo-campo-modal textarea {
+    background-color: #241e31;
+    border: 1px solid #3b3050;
+    color: #ffffff;
+}
+
+body.dark-mode .grupo-campo-modal input:focus,
+body.dark-mode .grupo-campo-modal textarea:focus {
+    border-color: #ff7a3d;
+}
+
+body.dark-mode .btn-aplicar-alteracoes {
+    background-color: #ff7a3d;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-aplicar-alteracoes:hover {
+    background-color: #e06b00;
+}
+
+body.dark-mode .modal-item-usuario .info-link {
+    color: #ffffff;
+}
+
+body.dark-mode .modal-item-usuario .avatar-link img {
+    border-color: #3b3050;
+}
+
+body.dark-mode .modal-conexoes-vazio,
+body.dark-mode .modal-conexoes-carregando {
+    color: #a49bb8;
+}

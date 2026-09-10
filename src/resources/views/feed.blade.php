@@ -3,8 +3,8 @@
 @section('titulo', 'Feed Principal')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('css/feed.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ asset('css/feed.css') }}">
 @endpush
 
 @section('conteudo')
@@ -12,33 +12,50 @@
 
     <main class="conteudo-principal">
 
+        <div class="topo-feed-navegacao">
+
+            <button type="button" class="btn-filtrar" onclick="abrirModalFiltros()">
+                <i class="bi bi-sliders"></i> Filtrar
+            </button>
+        </div>
+
+        <!-- LISTA DE POSTS -->
         @forelse($publicacoes as $post)
+            @php
+                $palavras = str_word_count(strip_tags($post->conteudo ?? ''));
+                $minutosLeitura = max(1, ceil($palavras / 180));
+            @endphp
+
             <article class="cartao-post">
 
-               @if($post->categorias)
+                @if($post->categorias)
                     <div class="categorias-post">
                         @foreach(explode(',', $post->categorias) as $categoria)
-                            <span class="categoria-badge">
+                            <a href="{{ route('feed', ['aba' => $aba ?? 'para-voce', 'categoria' => trim($categoria)]) }}" 
+                               class="categoria-badge">
                                 {{ trim($categoria) }}
-                            </span>
+                            </a>
                         @endforeach
                     </div>
                 @endif
-                <div class="cabecalho-post" style="position: relative; z-index: 2;">
-                    <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" style="text-decoration: none;">
+
+                <div class="cabecalho-post">
+                    <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-autor">
                         <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto ? asset('storage/' . $post->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" 
                              class="foto-autor" 
-                             alt="Avatar"
-                             style="cursor: pointer; transition: transform 0.2s;"
-                             onmouseover="this.style.transform='scale(1.05)'"
-                             onmouseout="this.style.transform='scale(1)'">
+                             alt="{{ $post->usuario->nome_usuario }}">
                     </a>
                     
-                    <div class="info-autor">
-                        <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" style="text-decoration: none; color: inherit;">
-                            <h4>{{ $post->usuario->nome_usuario }}</h4>
-                        </a>
-                        <span>{{ $post->data_publicacao->diffForHumans() }}</span>                    </div>
+                    <div class="meta-cabecalho-post">
+                        <div class="info-autor">
+                            <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" class="link-nome-autor">
+                                <h4>{{ $post->usuario->nome_usuario }}</h4>
+                            </a>
+                            <span>{{ $post->data_publicacao->diffForHumans() }}</span>
+                        </div>
+
+                        
+                    </div>
                 </div>
                 
                 <div class="corpo-post">
@@ -53,43 +70,121 @@
                     </a>
                     
                     @if($post->capa)
-                        <img src="{{ asset('storage/' . $post->capa) }}" class="imagem-capa-post" alt="Capa">
+                        <img src="{{ asset('storage/' . $post->capa) }}" class="imagem-capa-post" alt="{{ $post->titulo }}">
                     @endif
                 </div>
 
-                <div class="acoes-post" style="position: relative; z-index: 2; display: flex; gap: 15px;">
-                    
+                <div class="acoes-post">
+                    <!-- CURTIR -->
                     @php
-                        // Verifica se o usuário logado já curtiu este post para colorir o coração
-                        $ja_curtiu = $post->curtidas->where('fk_id_usuario', Auth::id())->first();
+                        $ja_curtiu = Auth::check() ? $post->curtidas->where('fk_id_usuario', Auth::id())->first() : null;
                     @endphp
-
                     <button type="button" 
                             class="botao-acao btn-curtir {{ $ja_curtiu ? 'curtido' : '' }}" 
                             data-id="{{ $post->id_publicacao }}"
                             data-token="{{ csrf_token() }}"
-                            onclick="alternarCurtida(this)"
-                            style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                            onclick="alternarCurtida(this)">
                         <i class="bi {{ $ja_curtiu ? 'bi-heart-fill' : 'bi-heart' }}"></i>
                         <span class="contador-curtidas">{{ $post->curtidas->count() }}</span>
                     </button>
 
-                    <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}" class="botao-acao" style="text-decoration: none; display: flex; align-items: center; gap: 5px; color: #65676b;">
+                    <!-- COMENTAR -->
+                    <a href="{{ route('publicacao.detalhes', $post->id_publicacao) }}#comentarios" 
+                       class="botao-acao link-comentario">
                         <i class="bi bi-chat"></i>
                         <span>{{ $post->comentarios->count() }}</span>
                     </a>
+
+                    <!-- SALVAR -->
+                    @php
+                        $ja_salvou = Auth::check() ? $post->salvos->where('fk_id_usuario', Auth::id())->first() : null;
+                    @endphp
+                    <button type="button" 
+                            class="botao-acao btn-salvar {{ $ja_salvou ? 'salvo' : '' }}" 
+                            data-id="{{ $post->id_publicacao }}" 
+                            data-token="{{ csrf_token() }}" 
+                            onclick="alternarSalvar(this)">
+                        <i class="bi {{ $ja_salvou ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></i>
+                        <span class="contador-salvos">{{ $post->salvos->count() }}</span>
+                    </button>
+
+                    <!-- COMPARTILHAR -->
+                    <button type="button" 
+                            class="botao-acao btn-compartilhar" 
+                            data-id="{{ $post->id_publicacao }}"
+                            data-titulo="{{ $post->titulo }}"
+                            data-url="{{ route('publicacao.detalhes', $post->id_publicacao) }}"
+                            onclick="abrirModalCompartilharData(this)">
+                        <i class="bi bi-share"></i>
+                        <span class="contador-compartilhamentos">{{ $post->compartilhamentos ?? 0 }}</span>
+                    </button>
                 </div>
 
             </article>
         @empty
-            <p>Nenhuma publicação encontrada no momento.</p>
+            <div class="estado-vazio-feed">
+                <i class="bi bi-journal-x"></i>
+                <h3>Nenhuma publicação encontrada</h3>
+                <p>Ajuste os filtros ou compartilhe uma nova história com a comunidade!</p>
+            </div>
         @endforelse
     </main>
 </div>
 
-<a href="{{ route('publicacao.criar') }}" class="botao-flutuante-criar">+</a>
+<!-- MODAL OVERLAY DE FILTROS (ESTILO APP) -->
+<div id="modalFiltros" class="modal-overlay-filtros" onclick="fecharModalFiltrosFora(event)">
+    <div class="modal-conteudo-filtros">
+        <div class="cabecalho-modal-filtros">
+            <h3>Filtrar Publicações</h3>
+            <button class="btn-fechar-modal" onclick="fecharModalFiltros()">&times;</button>
+        </div>
+
+        <div class="secao-filtro-bloco">
+            <h4>Ordenar por</h4>
+            <a href="{{ route('feed', array_merge(request()->query(), ['ordem' => 'recentes'])) }}" class="opcao-ordenar">
+                <i class="bi bi-clock-history"></i> Publicados mais recentemente
+            </a>
+        </div>
+
+        @if(isset($categorias) && $categorias->isNotEmpty())
+            <div class="secao-filtro-bloco">
+                <h4>Categorias</h4>
+                <div class="grid-categorias-modal">
+                    <a href="{{ route('feed', ['aba' => $aba ?? 'para-voce']) }}" 
+                       class="chip-categoria-modal {{ empty($categoriaSelecionada) ? 'ativo' : '' }}">
+                        Todas
+                    </a>
+
+                    @foreach($categorias as $cat)
+                        <a href="{{ route('feed', ['aba' => $aba ?? 'para-voce', 'categoria' => $cat->nome]) }}" 
+                           class="chip-categoria-modal {{ ($categoriaSelecionada ?? '') === $cat->nome ? 'ativo' : '' }}">
+                            {{ $cat->nome }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+    </div>
+</div>
+
+<a href="{{ route('publicacao.criar') }}" class="botao-flutuante-criar" title="Nova Publicação">+</a>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('js/detalhes.js') }}"></script>
+    <script>
+        function abrirModalFiltros() {
+            document.getElementById('modalFiltros').classList.add('ativo');
+        }
+
+        function fecharModalFiltros() {
+            document.getElementById('modalFiltros').classList.remove('ativo');
+        }
+
+        function fecharModalFiltrosFora(e) {
+            if (e.target.id === 'modalFiltros') {
+                fecharModalFiltros();
+            }
+        }
+    </script>
 @endpush

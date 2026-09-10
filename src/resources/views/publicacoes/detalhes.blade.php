@@ -11,7 +11,10 @@
 @section('conteudo')
 <div class="conteudo-principal-site com-barra-lateral">
 <div class="container-botao-voltar">
-    <a href="{{ route('feed') }}" class="btn-voltar-link" title="Voltar para a página anterior" onclick="if(document.referrer) { event.preventDefault(); history.back(); }">
+    <a href="{{ route('feed') }}" 
+       class="btn-voltar-link" 
+       title="Voltar para a página anterior" 
+       onclick="if(document.referrer && !document.referrer.includes('/editar')) { event.preventDefault(); history.back(); }">
         <i class="bi bi-arrow-left"></i> 
         Voltar
     </a>
@@ -23,7 +26,7 @@
         <div class="cabecalho-post">
 
             <div class="autor-post">
-                <a href="{{ route('perfil.exibir', $post->usuario->id_usuario) }}" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                <a href="{{ route('perfil.exibir', $post->usuario->nome_usuario) }}" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
                     <img src="{{ $post->usuario->perfil && $post->usuario->perfil->foto
                             ? asset('storage/'.$post->usuario->perfil->foto)
                             : asset('imagens/perfil-v1.png') }}"
@@ -48,23 +51,28 @@
                     </div>
                 @endif
 
-                <!-- SEGURANÇA: Só renderiza o menu se o usuário estiver logado E for o dono do post -->
-                @if(Auth::check() && Auth::id() == $post->usuario->id_usuario)
+                {{-- Exibe o menu se for o AUTOR do post OU se for ADMIN --}}
+                @if(Auth::check() && (Auth::id() == $post->usuario->id_usuario || Auth::user()->e_admin))
                 <div class="container-opcoes-post">
                     <button class="btn-tres-pontinhos" onclick="alternarMenuPost(event, 'menu-{{ $post->id_publicacao }}')">
                         <i class="bi bi-three-dots"></i>
                     </button>
                     
                     <div id="menu-{{ $post->id_publicacao }}" class="menu-opcoes-post">
+                        {{-- Apenas o dono do post pode editar --}}
+                        @if(Auth::id() == $post->usuario->id_usuario)
                         <a href="{{ route('publicacao.editar', $post->id_publicacao) }}" class="item-opcao-post">
                             <i class="bi bi-pencil"></i> Editar
                         </a>
+                        @endif
                         
+                        {{-- O dono OU o Admin podem excluir o post --}}
                         <form action="{{ route('publicacao.deletar', $post->id_publicacao) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este post?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="item-opcao-post deletar">
-                                <i class="bi bi-trash"></i> Excluir
+                                <i class="bi bi-trash"></i> 
+                                {{ Auth::user()->e_admin && Auth::id() != $post->usuario->id_usuario ? 'Excluir (Admin)' : 'Excluir' }}
                             </button>
                         </form>
                     </div>
@@ -90,7 +98,7 @@
             </div>
 
             @if($post->podcast)
-                <div class="container-podcast" style="margin-top: 25px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <div class="container-podcast">
                     <h5 style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
                         <i class="bi bi-mic-fill" style="color: #007bff;"></i> Ouvir Episódio do Podcast
                     </h5>
@@ -101,8 +109,7 @@
             @endif
         </div>
 
-        <!-- Barra de Ações (Curtir, Comentar...) -->
-                <!-- Barra de Ações (Curtir, Comentar, Salvar e Compartilhar) -->
+        <!-- Barra de Ações -->
         <div class="barra-acoes">
 
             <!-- Curtir -->
@@ -126,8 +133,7 @@
                 <span>{{ $post->comentarios->count() }}</span>
             </div>
 
-            <!-- Salvar (Espelhado com o botão de curtir) -->
-            <!-- Salvar com Contador -->
+            <!-- Salvar -->
             <div class="container-salvar">
                 @php
                     $ja_salvou = Auth::check() ? $post->salvos->where('fk_id_usuario', Auth::id())->first() : null;
@@ -143,44 +149,96 @@
             </div>
 
             <!-- Compartilhar -->
-            <button type="button" class="botao-acao">
+            <button type="button" 
+                    class="botao-acao btn-compartilhar" 
+                    data-id="{{ $post->id_publicacao }}"
+                    data-titulo="{{ $post->titulo }}"
+                    data-url="{{ route('publicacao.detalhes', $post->id_publicacao) }}"
+                    onclick="abrirModalCompartilharData(this)">
                 <i class="bi bi-share"></i>
+                <span class="contador-compartilhamentos">{{ $post->compartilhamentos ?? 0 }}</span>
             </button>
 
         </div>
+
         <!-- Seção de Comentários -->
-    <div class="secao-comentarios">
-        <h3>Comentários (<span id="contador-comentarios-titulo">{{ $post->comentarios->count() }}</span>)</h3>
+        <div class="secao-comentarios">
+            <h3>Comentários (<span id="contador-comentarios-titulo">{{ $post->comentarios->count() }}</span>)</h3>
 
-        @if(Auth::check())
-        <form action="{{ route('comentario.salvar') }}" method="POST" class="form-comentario" onsubmit="enviarComentarioAssincrono(event, this)">
-            @csrf
-            <input type="hidden" name="id_publicacao" value="{{ $post->id_publicacao }}">
-            <input type="text" name="conteudo" placeholder="Escreva um comentário..." required>
-            <button type="submit">Publicar</button>
-        </form>
-        @endif
-
-        <div class="lista-comentarios">
-            @forelse($post->comentarios as $comentario)
-                <div class="comentario">
-                    <a href="{{ route('perfil.exibir', $comentario->usuario->id_usuario) }}">
-                        <img src="{{ $comentario->usuario->perfil && $comentario->usuario->perfil->foto ? asset('storage/'.$comentario->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="avatar-comentario">
-                    </a>
-                    <div class="corpo-comentario">
-                        <div class="topo-comentario">
-                            <a href="{{ route('perfil.exibir', $comentario->usuario->id_usuario) }}" style="text-decoration: none; color: inherit;">
-                                <strong>{{ $comentario->usuario->nome_usuario }}</strong>
-                            </a>
-                        </div>
-                        <p>{{ $comentario->conteudo }}</p>
-                    </div>
+            @if(Auth::check())
+            <div class="container-form-comentario">
+                <!-- Indicador de Resposta -->
+                <div id="indicador-resposta" class="indicador-resposta" style="display: none; align-items: center; justify-content: space-between; background: #f0ecf7; padding: 6px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; color: #452083;">
+                    <span>Respondendo a <strong id="nome-autor-resposta"></strong></span>
+                    <button type="button" onclick="cancelarResposta()" style="background: none; border: none; color: #d9534f; cursor: pointer; font-weight: bold; font-size: 14px;">&times; Cancelar</button>
                 </div>
-            @empty
-                <div class="sem-comentarios">Seja o primeiro a comentar.</div>
-            @endforelse
+
+                <form action="{{ route('comentario.salvar') }}" method="POST" class="form-comentario" onsubmit="enviarComentarioAssincrono(event, this)">
+                    @csrf
+                    <input type="hidden" name="id_publicacao" value="{{ $post->id_publicacao }}">
+                    <!-- Campo oculta id_pai -->
+                    <input type="hidden" name="id_pai" id="input_id_pai" value="">
+                    
+                    <input type="text" name="conteudo" id="campo_conteudo_comentario" placeholder="Escreva um comentário..." required>
+                    <button type="submit">Publicar</button>
+                </form>
+            </div>
+            @endif
+
+            <div class="lista-comentarios">
+                @forelse($post->comentarios->whereNull('id_pai') as $comentario)
+                    @php $idPai = $comentario->id_comentario ?? $comentario->id; @endphp
+                    <div class="comentario" id="comentario-{{ $idPai }}">
+                        <a href="{{ route('perfil.exibir', $comentario->usuario->nome_usuario) }}">
+                            <img src="{{ $comentario->usuario->perfil && $comentario->usuario->perfil->foto ? asset('storage/'.$comentario->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="avatar-comentario">
+                        </a>
+                        <div class="corpo-comentario" style="width: 100%;">
+                            <div class="topo-comentario" style="display: flex; justify-content: space-between; align-items: center;">
+                                <a href="{{ route('perfil.exibir', $comentario->usuario->nome_usuario) }}" style="text-decoration: none; color: inherit;">
+                                    <strong>{{ $comentario->usuario->nome_usuario }}</strong>
+                                </a>
+                                <small style="color: #888; font-size: 11px;">{{ $comentario->created_at->diffForHumans() }}</small>
+                            </div>
+                            <p style="margin: 4px 0 8px;">{{ $comentario->conteudo }}</p>
+
+                            <button type="button" 
+                                    class="btn-responder" 
+                                    data-id-pai="{{ $idPai }}" 
+                                    data-usuario="{{ $comentario->usuario->nome_usuario }}"
+                                    onclick="prepararResposta(this.dataset.idPai, this.dataset.usuario)">
+                                Responder
+                            </button>
+
+                            <!-- Container para respostas filhas -->
+                            <div class="respostas-comentario" id="respostas-do-comentario-{{ $idPai }}" style="margin-top: 10px; padding-left: 14px; border-left: 2px solid #ebe5f2;">
+                                @if($comentario->respostas && $comentario->respostas->count() > 0)
+                                    @foreach($comentario->respostas as $resposta)
+                                        @php $idSub = $resposta->id_comentario ?? $resposta->id; @endphp
+                                        <div class="comentario subcomentario" id="comentario-{{ $idSub }}" style="margin-top: 10px; display: flex; gap: 10px;">
+                                            <a href="{{ route('perfil.exibir', $resposta->usuario->nome_usuario) }}">
+                                                <img src="{{ $resposta->usuario->perfil && $resposta->usuario->perfil->foto ? asset('storage/'.$resposta->usuario->perfil->foto) : asset('imagens/perfil-v1.png') }}" class="avatar-comentario" style="width: 28px; height: 28px;">
+                                            </a>
+                                            <div class="corpo-comentario" style="width: 100%;">
+                                                <div class="topo-comentario" style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <a href="{{ route('perfil.exibir', $resposta->usuario->nome_usuario) }}" style="text-decoration: none; color: inherit;">
+                                                        <strong>{{ $resposta->usuario->nome_usuario }}</strong>
+                                                    </a>
+                                                    <small style="color: #888; font-size: 11px;">{{ $resposta->created_at->diffForHumans() }}</small>
+                                                </div>
+                                                <p style="margin: 4px 0 0;">{{ $resposta->conteudo }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>
+                @empty
+                    <div class="sem-comentarios">Seja o primeiro a comentar.</div>
+                @endforelse
+            </div>
         </div>
-    </div>
 
     </article>
 

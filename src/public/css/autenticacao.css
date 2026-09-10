@@ -26,7 +26,7 @@ body {
 
 .titulo-painel,
 .titulo-boas-vindas {
-    color: #43217a;
+    color: #42227a;
     font-size: 30px;
     font-weight: 800;
     margin: 0 0 6px 0;
@@ -34,7 +34,7 @@ body {
 }
 
 .subtitulo-auth {
-    color: #43217a;
+    color: #42227a;
     font-size: 16px;
     font-weight: 500;
     margin: 0 0 24px 0;
@@ -59,7 +59,7 @@ body {
 
 .rotulo-campo {
     display: block;
-    color: #43217a;
+    color: #42227a;
     font-size: 14px;
     font-weight: 800;
     margin-left: 18px;
@@ -105,11 +105,19 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+
+    /* Animação fluida e sombra discreta padrão */
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .botao-roxo:hover,
 .botao-substituto:hover {
-    background-color: #3a186f;
+   background-color: #3b1973;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(72, 33, 132, 0.35);
 }
 
 .total-width {
@@ -124,13 +132,13 @@ body {
 }
 
 .texto-esqueceu {
-    color: #43217a;
+    color: #42227a;
     font-size: 13px;
     margin: 0 0 4px 0;
 }
 
 .link-clique-aqui {
-    color: #43217a;
+    color: #42227a;
     font-size: 13px;
     font-weight: 800;
     text-decoration: none;
@@ -200,7 +208,7 @@ body {
 }
 
 .texto-cadastro {
-    color: #43217a;
+    color: #42227a;
     font-size: 13px;
     margin: 0 0 4px 0;
 }
@@ -212,4 +220,99 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 12px;
+}
+
+/* Divisória "OU" */
+.divisor-auth {
+    width: 100%;
+    max-width: 455px;
+    margin: 20px 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.linha-divisor {
+    flex: 1;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+.texto-divisor {
+    color: #777;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Estilo específico do botão do Google */
+.container-google {
+    width: 100%;
+    max-width: 455px;
+    display: flex;
+    justify-content: center;
+}
+
+.botao-google {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #42227a;
+    box-sizing: border-box;
+}
+
+.botao-google:hover {
+    background-color: #ffffff;
+    border-color: #bbb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.botao-google svg {
+    transition: transform 0.25s ease;
+}
+
+.botao-roxo:active,
+.botao-google:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Completed section for the auth divider and secondary actions */
+.linha-divisor {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #d1c7e0;
+}
+
+.texto-divisor {
+    color: #776594;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 8px;
+}
+
+/* Dark Mode integration for authentication pages */
+body.dark-mode .painel-autenticacao {
+    background-color: #120e1c;
+}
+
+body.dark-mode .titulo-painel,
+body.dark-mode .titulo-boas-vindas,
+body.dark-mode .subtitulo-auth,
+body.dark-mode .rotulo-campo,
+body.dark-mode .texto-esqueceu,
+body.dark-mode .link-clique-aqui,
+body.dark-mode .texto-cadastro {
+    color: #e4ddf0 !important;
+}
+
+body.dark-mode .campo-texto {
+    background-color: #1d152c;
+    border-color: #382856;
+    color: #ffffff;
+}
+
+body.dark-mode .campo-texto:focus {
+    border-color: #ff7a45;
+    box-shadow: 0 0 0 1px #ff7a45;
 }

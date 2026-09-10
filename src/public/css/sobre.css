@@ -1,0 +1,336 @@
+/* Container Geral da Página Sobre */
+.container-sobre {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 20px 60px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+/* Hero Section */
+.hero-sobre {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(67, 33, 122, 0.05) 0%, rgba(107, 59, 167, 0.12) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(67, 33, 122, 0.1);
+}
+
+.tag-destaque {
+    display: inline-block;
+    background-color: #43217a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.titulo-hero {
+    color: #43217a;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
+}
+
+.subtitulo-hero {
+    color: #555555;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* Grade de Pilares */
+.grade-pilares {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.card-pilar {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 28px 24px;
+    border: 1px solid #e2e2e2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    text-align: left;
+}
+
+.card-pilar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(67, 33, 122, 0.12);
+    border-color: #6b3ba7;
+}
+
+.icone-pilar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #482184, #6b3ba7);
+    color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.card-pilar h3 {
+    color: #43217a;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.card-pilar p {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Seção de História/Propósito */
+.secao-historia {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 36px 32px;
+    border: 1px solid #e2e2e2;
+}
+
+.conteudo-historia h2 {
+    color: #43217a;
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 14px 0;
+}
+
+.conteudo-historia p {
+    color: #555555;
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 12px;
+}
+
+.conteudo-historia p:last-child {
+    margin-bottom: 0;
+}
+
+/* Painel Call to Action (CTA) */
+.painel-cta {
+    background: linear-gradient(135deg, #160b2b 0%, #2a124d 100%);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(22, 11, 43, 0.2);
+}
+
+.painel-cta h2 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+}
+
+.painel-cta p {
+    color: #d1c7e0;
+    font-size: 15px;
+    margin: 0 0 24px 0;
+}
+
+.acoes-cta {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.botao-outline {
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
+.botao-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #ffffff !important;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+    .titulo-hero {
+        font-size: 26px;
+    }
+
+    .subtitulo-hero {
+        font-size: 14px;
+    }
+
+    .secao-historia {
+        padding: 24px 20px;
+    }
+
+    .acoes-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* ==========================================================================
+   BOTÕES DA SEÇÃO CTA (FUNDO ESCURO)
+   ========================================================================== */
+.acoes-cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+/* Botão Principal (Branco com texto Roxo para contraste máximo) */
+.btn-cta-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #3b186f;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.25s ease;
+}
+
+.btn-cta-principal:hover {
+    background-color: #f3ecff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(255, 255, 255, 0.25);
+}
+
+/* Botão Secundário / Outline */
+.btn-cta-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.btn-cta-outline:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.btn-cta-principal:active,
+.btn-cta-outline:active {
+    transform: translateY(0);
+}
+
+/* Adaptabilidade para Celulares */
+@media (max-width: 650px) {
+    .acoes-cta {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-cta-principal,
+    .btn-cta-outline {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* ==========================================================================
+   MODO ESCURO - PÁGINA SOBRE (Ativado com <body class="dark-mode">)
+   ========================================================================== */
+
+/* Hero Section */
+body.dark-mode .hero-sobre {
+    background: linear-gradient(135deg, rgba(88, 40, 163, 0.25) 0%, rgba(138, 80, 227, 0.12) 100%);
+    border-color: rgba(157, 135, 196, 0.2);
+}
+
+body.dark-mode .tag-destaque {
+    background-color: #5828a3;
+    color: #ff9d66;
+}
+
+body.dark-mode .titulo-hero,
+body.dark-mode .card-pilar h3,
+body.dark-mode .conteudo-historia h2 {
+    color: #f2ebfc;
+}
+
+body.dark-mode .subtitulo-hero,
+body.dark-mode .card-pilar p,
+body.dark-mode .conteudo-historia p {
+    color: #d2c9e3;
+}
+
+/* Cards & Seções */
+body.dark-mode .card-pilar,
+body.dark-mode .secao-historia {
+    background-color: #1e182b;
+    border-color: #362a4d;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .card-pilar:hover {
+    border-color: #9d87c4;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .icone-pilar {
+    background: linear-gradient(135deg, #5828a3, #8a50e3);
+    color: #ffffff;
+}
+
+/* Painel CTA */
+body.dark-mode .painel-cta {
+    background: linear-gradient(135deg, #0d061a 0%, #1e0c38 100%);
+    border: 1px solid #362a4d;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .painel-cta p {
+    color: #d2c9e3;
+}
+
+body.dark-mode .btn-cta-principal {
+    background-color: #f2ebfc;
+    color: #2a124d;
+}
+
+body.dark-mode .btn-cta-principal:hover {
+    background-color: #ffffff;
+    box-shadow: 0 8px 22px rgba(255, 255, 255, 0.15);
+}
